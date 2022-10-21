@@ -1,13 +1,14 @@
 package com.example.district13.DataModel;
 
 import java.net.URL;
+import java.util.List;
 
 public class JSONResponse {
     private class ValueUnit {
-        private int value;
+        private double value;
         private String unit;
 
-        public int getValue() {
+        public double getValue() {
             return value;
         }
 
@@ -23,22 +24,28 @@ public class JSONResponse {
             this.unit = unit;
         }
 
-        public ValueUnit(int value, String unit) {
+        public ValueUnit(double value, String unit) {
             this.value = value;
             this.unit = unit;
         }
     }
 
     private class Method {
-        private MashTemp mash_temp;
+        private List<MashTempBody> mash_temp;
         private Fermentation fermentation;
         private String twist;
 
-        public MashTemp getMash_temp() {
+        public List<MashTempBody> getMash_temp() {
             return mash_temp;
         }
 
-        public void setMash_temp(MashTemp mash_temp) {
+        public Method(List<MashTempBody> mash_temp, Fermentation fermentation, String twist) {
+            this.mash_temp = mash_temp;
+            this.fermentation = fermentation;
+            this.twist = twist;
+        }
+
+        public void setMash_temp(List<MashTempBody> mash_temp) {
             this.mash_temp = mash_temp;
         }
 
@@ -58,28 +65,23 @@ public class JSONResponse {
             this.twist = twist;
         }
 
-        public Method(MashTemp mash_temp, Fermentation fermentation, String twist) {
-            this.mash_temp = mash_temp;
-            this.fermentation = fermentation;
-            this.twist = twist;
-        }
     }
 
-    private class MashTemp {
-        private MashTempBody[] mash_temp;
-
-        public MashTempBody[] getMash_temp() {
-            return mash_temp;
-        }
-
-        public void setMash_temp(MashTempBody[] mash_temp) {
-            this.mash_temp = mash_temp;
-        }
-
-        public MashTemp(MashTempBody[] mash_temp) {
-            this.mash_temp = mash_temp;
-        }
-    }
+//    private class MashTemp {
+//        private List<MashTempBody> mash_temp;
+//
+//        public List<MashTempBody> getMash_temp() {
+//            return mash_temp;
+//        }
+//
+//        public void setMash_temp(List<MashTempBody> mash_temp) {
+//            this.mash_temp = mash_temp;
+//        }
+//
+//        public MashTemp(List<MashTempBody> mash_temp) {
+//            this.mash_temp = mash_temp;
+//        }
+//    }
 
     private class MashTempBody {
         private ValueUnit temp;
@@ -105,6 +107,7 @@ public class JSONResponse {
             this.temp = temp;
             this.duration = duration;
         }
+
     }
 
     private class Fermentation {
@@ -125,23 +128,24 @@ public class JSONResponse {
     }
 
     private class Ingredient {
-        private Malt malt;
-        private Hops hops;
+        private List<MaltBody> malt;
+        private List<HopsBody> hops;
         private String yeast;
 
-        public Malt getMalt() {
+
+        public List<MaltBody> getMalt() {
             return malt;
         }
 
-        public void setMalt(Malt malt) {
+        public void setMalt(List<MaltBody> malt) {
             this.malt = malt;
         }
 
-        public Hops getHops() {
+        public List<HopsBody> getHops() {
             return hops;
         }
 
-        public void setHops(Hops hops) {
+        public void setHops(List<HopsBody> hops) {
             this.hops = hops;
         }
 
@@ -153,28 +157,13 @@ public class JSONResponse {
             this.yeast = yeast;
         }
 
-        public Ingredient(Malt malt, Hops hops, String yeast) {
+        public Ingredient(List<MaltBody> malt, List<HopsBody> hops, String yeast) {
             this.malt = malt;
             this.hops = hops;
             this.yeast = yeast;
         }
     }
 
-    private class Malt {
-        private MaltBody[] malt;
-
-        public MaltBody[] getMalt() {
-            return malt;
-        }
-
-        public void setMalt(MaltBody[] malt) {
-            this.malt = malt;
-        }
-
-        public Malt(MaltBody[] malt) {
-            this.malt = malt;
-        }
-    }
 
     private class MaltBody {
         private String name;
