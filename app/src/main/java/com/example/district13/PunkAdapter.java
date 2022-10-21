@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class PunkAdapter extends RecyclerView.Adapter<PunkViewHolder> {
 
-    private final List<Punk> links;
+    private final List<Punk> punks;
     private final Context context;
 
-    public PunkAdapter(List<Punk> links, Context context) {
-        this.links = links;
+    public PunkAdapter(List<Punk> punks, Context context) {
+        this.punks = punks;
         this.context = context;
     }
 
@@ -29,13 +31,20 @@ public class PunkAdapter extends RecyclerView.Adapter<PunkViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PunkViewHolder holder, int position) {
-
+        holder.name.setText(punks.get(position).getName());
+        holder.tagline.setText(punks.get(position).getTagline());
+        holder.first_brewed.setText(punks.get(position).getFirst_brewed());
+        holder.description.setText(punks.get(position).getDescription());
+        // Handle image
+        Glide.with(context)
+                .load(punks.get(position).getImage_url())
+                .into(holder.image_url);
     }
 
     @Override
     public int getItemCount() {
         // Returns the size of the recyclerview that is the list of the arraylist.
-        return links.size();
+        return punks.size();
     }
 }
 

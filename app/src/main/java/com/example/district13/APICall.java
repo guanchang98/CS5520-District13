@@ -1,8 +1,5 @@
 package com.example.district13;
 
-import com.example.district13.DataModel.DataModel;
-import com.example.district13.DataModel.JSONResponse;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 

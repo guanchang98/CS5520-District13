@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.district13.DataModel.JSONResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,12 +17,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceActivity extends AppCompatActivity {
-    RecyclerView PunkRecyclerView;
+    RecyclerView punksRecyclerView;
+    List<Punk> punkList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+        punksRecyclerView = findViewById(R.id.recycler_view_punk);
+        punkList = new ArrayList<>();
 
         // Retrofit builder
         Retrofit retrofit = new Retrofit.Builder()
@@ -49,10 +54,13 @@ public class ServiceActivity extends AppCompatActivity {
                 JSONResponse[] punks = response.body();
 
                 for (JSONResponse jsonResponse : punks) {
-                    String responseTest = "";
-                    responseTest += jsonResponse.getName();
-                    Log.v("ServiceActivity response test:", responseTest);
+                    Punk curPunk = new Punk(jsonResponse.getName(), jsonResponse.getTagline(),
+                            jsonResponse.getFirst_brewed(), jsonResponse.getDescription(),
+                            jsonResponse.getImage_url());
+                    punkList.add(curPunk);
                 }
+
+                putDataIntoRecyclerView(punkList);
 
             }
 
@@ -62,5 +70,23 @@ public class ServiceActivity extends AppCompatActivity {
             }
         });
         Log.v("ServiceActivity response test:", "After enqueue");
+        for (Punk punk : punkList) {
+            Log.v("Punk List:", punk.getName());
+        }
+
+        Log.v("ServiceActivity list size:", String.valueOf(punkList.size()));
+
+        punksRecyclerView = findViewById(R.id.recycler_view_punk);
+        //This defines the way in which the RecyclerView is oriented
+        punksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //Associates the adapter with the RecyclerView
+        punksRecyclerView.setAdapter(new PunkAdapter(punkList, this));
+    }
+
+    private void putDataIntoRecyclerView(List<Punk> punkList) {
+        punksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Associates the adapter with the RecyclerView
+        punksRecyclerView.setAdapter(new PunkAdapter(punkList, this));
     }
 }

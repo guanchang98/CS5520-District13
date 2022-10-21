@@ -1,4 +1,4 @@
-package com.example.district13.DataModel;
+package com.example.district13;
 
 import java.net.URL;
 import java.util.List;
@@ -64,24 +64,7 @@ public class JSONResponse {
         public void setTwist(String twist) {
             this.twist = twist;
         }
-
     }
-
-//    private class MashTemp {
-//        private List<MashTempBody> mash_temp;
-//
-//        public List<MashTempBody> getMash_temp() {
-//            return mash_temp;
-//        }
-//
-//        public void setMash_temp(List<MashTempBody> mash_temp) {
-//            this.mash_temp = mash_temp;
-//        }
-//
-//        public MashTemp(List<MashTempBody> mash_temp) {
-//            this.mash_temp = mash_temp;
-//        }
-//    }
 
     private class MashTempBody {
         private ValueUnit temp;
