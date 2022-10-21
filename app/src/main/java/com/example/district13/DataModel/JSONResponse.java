@@ -1,7 +1,6 @@
 package com.example.district13.DataModel;
 
 import java.net.URL;
-import java.util.List;
 
 public class JSONResponse {
     private class ValueUnit {
@@ -67,17 +66,17 @@ public class JSONResponse {
     }
 
     private class MashTemp {
-        private List<MashTempBody> mash_temp;
+        private MashTempBody[] mash_temp;
 
-        public List<MashTempBody> getMash_temp() {
+        public MashTempBody[] getMash_temp() {
             return mash_temp;
         }
 
-        public void setMash_temp(List<MashTempBody> mash_temp) {
+        public void setMash_temp(MashTempBody[] mash_temp) {
             this.mash_temp = mash_temp;
         }
 
-        public MashTemp(List<MashTempBody> mash_temp) {
+        public MashTemp(MashTempBody[] mash_temp) {
             this.mash_temp = mash_temp;
         }
     }
@@ -162,17 +161,17 @@ public class JSONResponse {
     }
 
     private class Malt {
-        private List<MaltBody> malt;
+        private MaltBody[] malt;
 
-        public List<MaltBody> getMalt() {
+        public MaltBody[] getMalt() {
             return malt;
         }
 
-        public void setMalt(List<MaltBody> malt) {
+        public void setMalt(MaltBody[] malt) {
             this.malt = malt;
         }
 
-        public Malt(List<MaltBody> malt) {
+        public Malt(MaltBody[] malt) {
             this.malt = malt;
         }
     }
@@ -204,17 +203,17 @@ public class JSONResponse {
     }
 
     private class Hops {
-        private List<HopsBody> hops;
+        private HopsBody[] hops;
 
-        public List<HopsBody> getHops() {
+        public HopsBody[] getHops() {
             return hops;
         }
 
-        public void setHops(List<HopsBody> hops) {
+        public void setHops(HopsBody[] hops) {
             this.hops = hops;
         }
 
-        public Hops(List<HopsBody> hops) {
+        public Hops(HopsBody[] hops) {
             this.hops = hops;
         }
     }
