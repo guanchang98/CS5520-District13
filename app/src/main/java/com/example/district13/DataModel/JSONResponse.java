@@ -23,6 +23,11 @@ public class JSONResponse {
         public void setUnit(String unit) {
             this.unit = unit;
         }
+
+        public ValueUnit(int value, String unit) {
+            this.value = value;
+            this.unit = unit;
+        }
     }
 
     private class Method {
@@ -53,16 +58,26 @@ public class JSONResponse {
         public void setTwist(String twist) {
             this.twist = twist;
         }
+
+        public Method(MashTemp mash_temp, Fermentation fermentation, String twist) {
+            this.mash_temp = mash_temp;
+            this.fermentation = fermentation;
+            this.twist = twist;
+        }
     }
 
     private class MashTemp {
-        List<MashTempBody> mash_temp;
+        private List<MashTempBody> mash_temp;
 
         public List<MashTempBody> getMash_temp() {
             return mash_temp;
         }
 
         public void setMash_temp(List<MashTempBody> mash_temp) {
+            this.mash_temp = mash_temp;
+        }
+
+        public MashTemp(List<MashTempBody> mash_temp) {
             this.mash_temp = mash_temp;
         }
     }
@@ -86,10 +101,15 @@ public class JSONResponse {
         public void setDuration(int duration) {
             this.duration = duration;
         }
+
+        public MashTempBody(ValueUnit temp, int duration) {
+            this.temp = temp;
+            this.duration = duration;
+        }
     }
 
     private class Fermentation {
-        ValueUnit temp;
+        private ValueUnit temp;
 
         public ValueUnit getTemp() {
             return temp;
@@ -98,12 +118,17 @@ public class JSONResponse {
         public void setTemp(ValueUnit temp) {
             this.temp = temp;
         }
+
+        public Fermentation(ValueUnit temp) {
+            this.temp = temp;
+        }
+
     }
 
     private class Ingredient {
-        Malt malt;
-        Hops hops;
-        String yeast;
+        private Malt malt;
+        private Hops hops;
+        private String yeast;
 
         public Malt getMalt() {
             return malt;
@@ -128,10 +153,16 @@ public class JSONResponse {
         public void setYeast(String yeast) {
             this.yeast = yeast;
         }
+
+        public Ingredient(Malt malt, Hops hops, String yeast) {
+            this.malt = malt;
+            this.hops = hops;
+            this.yeast = yeast;
+        }
     }
 
     private class Malt {
-        List<MaltBody> malt;
+        private List<MaltBody> malt;
 
         public List<MaltBody> getMalt() {
             return malt;
@@ -140,11 +171,15 @@ public class JSONResponse {
         public void setMalt(List<MaltBody> malt) {
             this.malt = malt;
         }
+
+        public Malt(List<MaltBody> malt) {
+            this.malt = malt;
+        }
     }
 
     private class MaltBody {
-        String name;
-        ValueUnit amount;
+        private String name;
+        private ValueUnit amount;
 
         public String getName() {
             return name;
@@ -161,10 +196,15 @@ public class JSONResponse {
         public void setAmount(ValueUnit amount) {
             this.amount = amount;
         }
+
+        public MaltBody(String name, ValueUnit amount) {
+            this.name = name;
+            this.amount = amount;
+        }
     }
 
     private class Hops {
-        List<HopsBody> hops;
+        private List<HopsBody> hops;
 
         public List<HopsBody> getHops() {
             return hops;
@@ -173,13 +213,17 @@ public class JSONResponse {
         public void setHops(List<HopsBody> hops) {
             this.hops = hops;
         }
+
+        public Hops(List<HopsBody> hops) {
+            this.hops = hops;
+        }
     }
 
     private class HopsBody {
-        String name;
-        ValueUnit amount;
-        String add;
-        String attribute;
+        private String name;
+        private ValueUnit amount;
+        private String add;
+        private String attribute;
 
         public String getName() {
             return name;
@@ -210,6 +254,13 @@ public class JSONResponse {
         }
 
         public void setAttribute(String attribute) {
+            this.attribute = attribute;
+        }
+
+        public HopsBody(String name, ValueUnit amount, String add, String attribute) {
+            this.name = name;
+            this.amount = amount;
+            this.add = add;
             this.attribute = attribute;
         }
     }
@@ -316,8 +367,8 @@ public class JSONResponse {
     private Method method;
     private Ingredient ingredients;
     private String[] food_pairing;
-    String brewers_tips;
-    String contribute_by;
+    private String brewers_tips;
+    private String contribute_by;
 
     public int getId() {
         return id;
@@ -484,6 +535,34 @@ public class JSONResponse {
     }
 
     public void setContribute_by(String contribute_by) {
+        this.contribute_by = contribute_by;
+    }
+
+    public JSONResponse(int id, String name, String tagline, String first_brewed, String description,
+                        URL image_url, double abv, double ibu, double target_fg, double target_og,
+                        double ebc, double srm, double ph, double attenuation_level, ValueUnit volume,
+                        ValueUnit boil_volume, Method method, Ingredient ingredients,
+                        String[] food_pairing, String brewers_tips, String contribute_by) {
+        this.id = id;
+        this.name = name;
+        this.tagline = tagline;
+        this.first_brewed = first_brewed;
+        this.description = description;
+        this.image_url = image_url;
+        this.abv = abv;
+        this.ibu = ibu;
+        this.target_fg = target_fg;
+        this.target_og = target_og;
+        this.ebc = ebc;
+        this.srm = srm;
+        this.ph = ph;
+        this.attenuation_level = attenuation_level;
+        this.volume = volume;
+        this.boil_volume = boil_volume;
+        this.method = method;
+        this.ingredients = ingredients;
+        this.food_pairing = food_pairing;
+        this.brewers_tips = brewers_tips;
         this.contribute_by = contribute_by;
     }
 }
