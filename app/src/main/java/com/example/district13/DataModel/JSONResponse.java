@@ -104,19 +104,75 @@ public class JSONResponse {
         Malt malt;
         Hops hops;
         String yeast;
+
+        public Malt getMalt() {
+            return malt;
+        }
+
+        public void setMalt(Malt malt) {
+            this.malt = malt;
+        }
+
+        public Hops getHops() {
+            return hops;
+        }
+
+        public void setHops(Hops hops) {
+            this.hops = hops;
+        }
+
+        public String getYeast() {
+            return yeast;
+        }
+
+        public void setYeast(String yeast) {
+            this.yeast = yeast;
+        }
     }
 
     private class Malt {
         List<MaltBody> malt;
+
+        public List<MaltBody> getMalt() {
+            return malt;
+        }
+
+        public void setMalt(List<MaltBody> malt) {
+            this.malt = malt;
+        }
     }
 
     private class MaltBody {
         String name;
         ValueUnit amount;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public ValueUnit getAmount() {
+            return amount;
+        }
+
+        public void setAmount(ValueUnit amount) {
+            this.amount = amount;
+        }
     }
 
     private class Hops {
         List<HopsBody> hops;
+
+        public List<HopsBody> getHops() {
+            return hops;
+        }
+
+        public void setHops(List<HopsBody> hops) {
+            this.hops = hops;
+        }
     }
 
     private class HopsBody {
@@ -124,6 +180,38 @@ public class JSONResponse {
         ValueUnit amount;
         String add;
         String attribute;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public ValueUnit getAmount() {
+            return amount;
+        }
+
+        public void setAmount(ValueUnit amount) {
+            this.amount = amount;
+        }
+
+        public String getAdd() {
+            return add;
+        }
+
+        public void setAdd(String add) {
+            this.add = add;
+        }
+
+        public String getAttribute() {
+            return attribute;
+        }
+
+        public void setAttribute(String attribute) {
+            this.attribute = attribute;
+        }
     }
 
 
@@ -230,4 +318,172 @@ public class JSONResponse {
     private String[] food_pairing;
     String brewers_tips;
     String contribute_by;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public String getFirst_brewed() {
+        return first_brewed;
+    }
+
+    public void setFirst_brewed(String first_brewed) {
+        this.first_brewed = first_brewed;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public URL getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(URL image_url) {
+        this.image_url = image_url;
+    }
+
+    public double getAbv() {
+        return abv;
+    }
+
+    public void setAbv(double abv) {
+        this.abv = abv;
+    }
+
+    public double getIbu() {
+        return ibu;
+    }
+
+    public void setIbu(double ibu) {
+        this.ibu = ibu;
+    }
+
+    public double getTarget_fg() {
+        return target_fg;
+    }
+
+    public void setTarget_fg(double target_fg) {
+        this.target_fg = target_fg;
+    }
+
+    public double getTarget_og() {
+        return target_og;
+    }
+
+    public void setTarget_og(double target_og) {
+        this.target_og = target_og;
+    }
+
+    public double getEbc() {
+        return ebc;
+    }
+
+    public void setEbc(double ebc) {
+        this.ebc = ebc;
+    }
+
+    public double getSrm() {
+        return srm;
+    }
+
+    public void setSrm(double srm) {
+        this.srm = srm;
+    }
+
+    public double getPh() {
+        return ph;
+    }
+
+    public void setPh(double ph) {
+        this.ph = ph;
+    }
+
+    public double getAttenuation_level() {
+        return attenuation_level;
+    }
+
+    public void setAttenuation_level(double attenuation_level) {
+        this.attenuation_level = attenuation_level;
+    }
+
+    public ValueUnit getVolume() {
+        return volume;
+    }
+
+    public void setVolume(ValueUnit volume) {
+        this.volume = volume;
+    }
+
+    public ValueUnit getBoil_volume() {
+        return boil_volume;
+    }
+
+    public void setBoil_volume(ValueUnit boil_volume) {
+        this.boil_volume = boil_volume;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public void setMethod(Method method) {
+        this.method = method;
+    }
+
+    public Ingredient getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Ingredient ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String[] getFood_pairing() {
+        return food_pairing;
+    }
+
+    public void setFood_pairing(String[] food_pairing) {
+        this.food_pairing = food_pairing;
+    }
+
+    public String getBrewers_tips() {
+        return brewers_tips;
+    }
+
+    public void setBrewers_tips(String brewers_tips) {
+        this.brewers_tips = brewers_tips;
+    }
+
+    public String getContribute_by() {
+        return contribute_by;
+    }
+
+    public void setContribute_by(String contribute_by) {
+        this.contribute_by = contribute_by;
+    }
 }
