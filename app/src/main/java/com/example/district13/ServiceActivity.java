@@ -18,7 +18,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+// TODO: Fix how RecyclerView looks
+// TODO: Loading icon
+// TODO: How to test with other beers?
 public class ServiceActivity extends AppCompatActivity {
     RecyclerView punksRecyclerView;
     List<Punk> punkList;
