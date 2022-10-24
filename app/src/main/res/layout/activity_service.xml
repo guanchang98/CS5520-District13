@@ -24,10 +24,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:hint="Beers brewed before this date (MM-YYYY)"
+        android:hint="@string/beers_brewed_before_this_date_mm_yyyy"
+        android:inputType="date"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/enterABV"
-        tools:layout_editor_absoluteX="0dp"
-        android:inputType="date"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.969" />
 
     <EditText
         android:id="@+id/enterABV"
@@ -36,20 +41,36 @@
         android:layout_below="@+id/enterDate"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="232dp"
-        android:hint="Beers greater than this ABV"
+        android:hint="@string/beers_greater_than_this_abv"
+        android:inputType="number"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp"
-        android:inputType="number"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="150dp"
         android:layout_height="51dp"
-        android:text="FETCH PUNKS!"
+        android:text="@string/fetch_punks"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterABV"
         app:layout_constraintVertical_bias="0.099"/>
+
+    <ProgressBar
+        android:id="@+id/processBar"
+        android:layout_width="108dp"
+        android:layout_height="112dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/purple_200"
+        android:scrollbarSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

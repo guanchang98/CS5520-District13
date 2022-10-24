@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">District13</string>
+    <string name="loading">Loading...</string>
+    <string name="fetch_punks">FETCH PUNKS!</string>
+    <string name="beers_greater_than_this_abv">Beers greater than this ABV</string>
+    <string name="beers_brewed_before_this_date_mm_yyyy">Beers brewed before this date (MM-YYYY)</string>
+    <string name="no_result">No Result Found! Please Try Again.</string>
 </resources>

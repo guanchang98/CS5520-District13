@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,10 +32,10 @@ public class PunkAdapter extends RecyclerView.Adapter<PunkViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull PunkViewHolder holder, int position) {
-        holder.name.setText(punks.get(position).getName());
-        holder.tagline.setText(punks.get(position).getTagline());
-        holder.first_brewed.setText(punks.get(position).getFirst_brewed());
-        holder.description.setText(punks.get(position).getDescription());
+        holder.name.setText("Name: " + punks.get(position).getName());
+        holder.tagline.setText("Tag: " + punks.get(position).getTagline());
+        holder.first_brewed.setText("Year: " + punks.get(position).getFirst_brewed());
+        holder.description.setText("Description: " + punks.get(position).getDescription());
         // Handle image
         Glide.with(context)
                 .load(punks.get(position).getImage_url())
@@ -46,6 +47,7 @@ public class PunkAdapter extends RecyclerView.Adapter<PunkViewHolder> {
         // Returns the size of the recyclerview that is the list of the arraylist.
         return punks.size();
     }
+
 }
 
 

@@ -3,8 +3,11 @@ package com.example.district13;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,19 +34,26 @@ public class ServiceActivity extends AppCompatActivity {
     String ABVString;
     String dateBeforeString;
     Button add;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
         punksRecyclerView = findViewById(R.id.recycler_view_punk);
-        punkList = new ArrayList<>();
-        ABV = findViewById(R.id.enterABV);
+        progressBar = findViewById(R.id.processBar);
         dateBefore = findViewById(R.id.enterDate);
         add = findViewById(R.id.addButton);
+        ABV = findViewById(R.id.enterABV);
+
+        punkList = new ArrayList<>();
         ABV.setVisibility(View.VISIBLE);
         dateBefore.setVisibility(View.VISIBLE);
         add.setVisibility(View.VISIBLE);
         punksRecyclerView.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
+
+
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +62,11 @@ public class ServiceActivity extends AppCompatActivity {
                 ABV.setVisibility(View.GONE);
                 dateBefore.setVisibility(View.GONE);
                 add.setVisibility(View.GONE);
+                // Show progress indicator
+                progressBar.setVisibility(View.VISIBLE);
                 punksRecyclerView.setVisibility(View.VISIBLE);
+
+
                 // Retrofit builder
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl("https://api.punkapi.com/")
@@ -85,12 +101,14 @@ public class ServiceActivity extends AppCompatActivity {
                         }
 
                         putDataIntoRecyclerView(punkList);
-
+                        // Stop showing the progress indicator
+                        progressBar.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onFailure(Call<JSONResponse[]> call, Throwable t) {
                         Log.v("ServiceActivity response test:", t.toString());
+
                     }
                 });
                 Log.v("ServiceActivity response test:", "After enqueue");
@@ -106,6 +124,7 @@ public class ServiceActivity extends AppCompatActivity {
 
                 //Associates the adapter with the RecyclerView
                 punksRecyclerView.setAdapter(new PunkAdapter(punkList, ServiceActivity.this));
+
             }
         });
 
