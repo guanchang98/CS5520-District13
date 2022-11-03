@@ -1,28 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".MainActivity"
-    android:textColor = "?android:textColorPrimary"
-    android:orientation="vertical">
+    android:textColor="?android:textColorPrimary"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_sticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/button_sticker_activity"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_service" />
 
     <TextView
         android:id="@+id/simpleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="District 13!"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/text_district_13"
         android:textSize="50sp"
-        android:layout_margin="20dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/button_service"
+        app:layout_constraintEnd_toEndOf="@+id/button_service"
+        app:layout_constraintStart_toStartOf="@+id/button_service"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/service"
+        android:id="@+id/button_service"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_horizontal"
-        android:text="At your Service"
-        android:textSize="20sp" />
+        android:text="@string/text_service_button"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_sticker"
+        app:layout_constraintEnd_toEndOf="@+id/button_sticker"
+        app:layout_constraintStart_toStartOf="@+id/button_sticker"
+        app:layout_constraintTop_toBottomOf="@+id/simpleTextView" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

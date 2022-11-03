@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "322239743546",
+    "firebase_url": "https://neu-cs5520-district13-default-rtdb.firebaseio.com",
+    "project_id": "neu-cs5520-district13",
+    "storage_bucket": "neu-cs5520-district13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322239743546:android:2cc88af80fb77cc0669703",
+        "android_client_info": {
+          "package_name": "com.example.district13"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322239743546-g1nrrdgqhl078kdbeso6asuo1q9rr4nd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSq8z6tUqVIwwBNDenW540gSq9G57Nlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322239743546-g1nrrdgqhl078kdbeso6asuo1q9rr4nd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,4 +5,7 @@
     <string name="beers_greater_than_this_abv">Beers greater than this ABV</string>
     <string name="beers_brewed_before_this_date_mm_yyyy">Beers brewed before this date (MM-YYYY)</string>
     <string name="no_result">No Result Found! Please Try Again.</string>
+    <string name="button_sticker_activity">Sticker</string>
+    <string name="text_service_button">At your Service</string>
+    <string name="text_district_13">District 13!</string>
 </resources>
