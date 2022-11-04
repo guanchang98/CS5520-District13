@@ -26,7 +26,7 @@ public class PunkAdapter extends RecyclerView.Adapter<PunkViewHolder> {
     @NonNull
     @Override
     public PunkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Create an instance of the viewholder by passing it the layout inflated as view and no root.
+        // Create an instance of the view holder by passing it the layout inflated as view and no root.
         return new PunkViewHolder(LayoutInflater.from(context).inflate(R.layout.item_punk, null));
     }
 
