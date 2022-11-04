@@ -12,4 +12,5 @@
     <string name="button_sticker_log_in">log in</string>
     <string name="textView_sticker_login_title">Log In</string>
     <string name="text_sticker_activity_title">Sticker</string>
+    <string name="text_sticker_welcome_user">Welcome, %1$s! \nPlease choose someone to text!</string>
 </resources>
