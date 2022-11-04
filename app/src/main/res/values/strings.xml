@@ -8,4 +8,8 @@
     <string name="button_sticker_activity">Sticker</string>
     <string name="text_service_button">At your Service</string>
     <string name="text_district_13">District 13!</string>
+    <string name="hint_sticker_login">Username</string>
+    <string name="button_sticker_log_in">log in</string>
+    <string name="textView_sticker_login_title">Log In</string>
+    <string name="text_sticker_activity_title">Sticker</string>
 </resources>
