@@ -14,4 +14,9 @@
     <string name="text_sticker_activity_title">Sticker</string>
     <string name="text_sticker_welcome_user">Welcome, %1$s! \nPlease choose someone to text!</string>
     <string name="button_sticker_select">Select Stickers</string>
+    <string name="textView_sticker_dialog_title">Choose your sticker</string>
+    <string name="textView_sticker_dialog_send">Send</string>
+    <string name="textView_sticker_dialog_cancel">Cancel</string>
+    <string name="textView_sticker_dialog_send_success">Send stickers to users successfully!</string>
+    <string name="textView_sticker_dialog_send_fail">Failed to send stickers to users!</string>
 </resources>
