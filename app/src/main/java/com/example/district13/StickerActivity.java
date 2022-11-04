@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.database.DatabaseReference;
+import com.example.district13.sticker_image.StickerImage;
+import com.example.district13.sticker_user.StickerUser;
+import com.example.district13.sticker_user.StickerUserAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class StickerActivity extends AppCompatActivity {
     TextView welcomeText;
     RecyclerView usersRecyclerView;
     List<StickerUser> userList;
+    List<StickerImage> stickerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,13 @@ public class StickerActivity extends AppCompatActivity {
         userList.add(new StickerUser("user2"));
         userList.add(new StickerUser("user3"));
 
+        stickerList = new ArrayList<>();
+
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         database.getReference("message").child("test").setValue("Hello, World!");
 
-        usersRecyclerView = findViewById(R.id.recyclerView);
+        usersRecyclerView = findViewById(R.id.recyclerView_sticker_user);
 
         usersRecyclerView.setHasFixedSize(true);
         //This defines the way in which the RecyclerView is oriented
@@ -49,6 +54,10 @@ public class StickerActivity extends AppCompatActivity {
 
         //Associates the adapter with the RecyclerView
         usersRecyclerView.setAdapter(new StickerUserAdapter(userList, StickerActivity.this));
+    }
+
+    public void showSelectStickersDialog(View view) {
+
     }
 
 

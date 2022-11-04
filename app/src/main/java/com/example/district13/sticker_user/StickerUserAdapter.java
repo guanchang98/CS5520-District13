@@ -1,4 +1,4 @@
-package com.example.district13;
+package com.example.district13.sticker_user;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.district13.R;
 
 import java.util.List;
 

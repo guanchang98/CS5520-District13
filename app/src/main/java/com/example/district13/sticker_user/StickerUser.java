@@ -1,4 +1,4 @@
-package com.example.district13;
+package com.example.district13.sticker_user;
 
 public class StickerUser {
     private final String username;
