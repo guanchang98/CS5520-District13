@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class StickerLogInActivity extends AppCompatActivity {
 
@@ -24,6 +25,10 @@ public class StickerLogInActivity extends AppCompatActivity {
         editText = findViewById(R.id.editText_login_username);
         Log.d("StickerLogInActivity", editText.getText().toString());
         String username = editText.getText().toString();
+        if (username.trim().length() == 0) {
+            Toast.makeText(StickerLogInActivity.this, "Please Input Your Username!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         intent.putExtra("Username", username);
         startActivity(intent);
     }

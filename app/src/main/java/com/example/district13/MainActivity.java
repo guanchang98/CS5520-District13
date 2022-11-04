@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         stickerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, StickerActivity.class));
+                startActivity(new Intent(MainActivity.this, StickerLogInActivity.class));
             }
         });
     }
