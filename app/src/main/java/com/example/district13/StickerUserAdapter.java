@@ -1,7 +1,9 @@
 package com.example.district13;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -30,7 +32,16 @@ public class StickerUserAdapter extends RecyclerView.Adapter<StickerUserViewHold
 
     @Override
     public void onBindViewHolder(@NonNull StickerUserViewHolder holder, int position) {
+        final StickerUser user = users.get(position);
         holder.username.setText(users.get(position).getUsername());
+        holder.view.setBackgroundColor(user.isSelected() ? Color.YELLOW : Color.WHITE);
+        holder.username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                user.setSelected(!user.isSelected());
+                holder.view.setBackgroundColor(user.isSelected() ? Color.YELLOW : Color.WHITE);
+            }
+        });
     }
 
     @Override

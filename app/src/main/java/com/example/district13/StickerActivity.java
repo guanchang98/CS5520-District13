@@ -42,6 +42,8 @@ public class StickerActivity extends AppCompatActivity {
         database.getReference("message").child("test").setValue("Hello, World!");
 
         usersRecyclerView = findViewById(R.id.recyclerView);
+
+        usersRecyclerView.setHasFixedSize(true);
         //This defines the way in which the RecyclerView is oriented
         usersRecyclerView.setLayoutManager(new LinearLayoutManager(StickerActivity.this));
 
