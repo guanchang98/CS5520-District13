@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.district13.R;
 
 import java.io.File;
@@ -36,11 +37,9 @@ public class StickerImageAdapter extends RecyclerView.Adapter<StickerImageViewHo
     @Override
     public void onBindViewHolder(@NonNull StickerImageViewHolder holder, int position) {
         final StickerImage stickerImage = images.get(position);
-        File imageFile = new File(stickerImage.getImagePath());
-        if(imageFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-            holder.image.setImageBitmap(myBitmap);
-        }
+        Glide.with(context)
+                .load(images.get(position).getImagePath())
+                .into(holder.image);
         holder.view.setBackgroundColor(stickerImage.isSelected() ? Color.YELLOW : Color.WHITE);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override

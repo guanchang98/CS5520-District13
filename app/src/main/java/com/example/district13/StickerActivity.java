@@ -142,6 +142,7 @@ public class StickerActivity extends AppCompatActivity {
 //        }
 //        String absolutePath = file.getAbsolutePath();
 //        Log.v(TAG, absolutePath);
+        stickerList.add(new StickerImage("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"));
 
         selectedUsers = new ArrayList<>();
         selectedImageUrls = new ArrayList<>();
@@ -226,13 +227,16 @@ public class StickerActivity extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = (View) inflater.inflate(R.layout.recycler_view_stickers, null);
 
-        builder.setView(dialogView);
+
         builder.setTitle(R.string.textView_sticker_dialog_title);
+        Log.v(TAG, "The sticker list size is: " + stickerList.size());
 
         RecyclerView rv = (RecyclerView) dialogView.findViewById(R.id.recyclerView_image);
-
+        rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         StickerImageAdapter adapter = new StickerImageAdapter(stickerList, StickerActivity.this);
         rv.setAdapter(adapter);
+
+        builder.setView(dialogView);
 
         for (StickerUser stickerUser : userList) {
             if (stickerUser.isSelected()) selectedUsers.add(stickerUser.getUsername());
