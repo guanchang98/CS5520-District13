@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -55,12 +56,11 @@ public class StickerActivity extends AppCompatActivity {
 
     TextView welcomeText;
     RecyclerView usersRecyclerView;
+    RecyclerView stickersRecyclerView;
     List<StickerUser> userList;
     List<StickerImage> stickerList;
     // User history list
     List<StickerUserHistory> userHistoryList;
-
-
 
     String username;
 
@@ -97,7 +97,7 @@ public class StickerActivity extends AppCompatActivity {
 //            dbRef.child("users").child("user" + i).child("sent_stickers").push().setValue(new StickerUserHistory("tester", "testURL"));
 //            dbRef.child("users").child("user" + i).child("received_stickers").push().setValue(new StickerUserHistory("tester", "testURL"));
 //        }
-        dbRef.child("imageURLs").child("0").setValue("0.png");
+
 
         dbRef.child("users").orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
@@ -127,9 +127,46 @@ public class StickerActivity extends AppCompatActivity {
             }
         });
 
+//        dbRef.child("imageURLs").child("0").setValue("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU");
+//        dbRef.child("imageURLs").child("1").setValue("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU");
+//        dbRef.child("imageURLs").child("2").setValue("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU");
 
         stickerList = new ArrayList<>();
-        stickerList.add(new StickerImage("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"));
+
+        dbRef.child("imageURLs").orderByKey().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                    Log.d(TAG, data.getKey());
+                    StickerImage stickerImage = new StickerImage((String) data.getValue());
+                    stickerList.add(stickerImage);
+                }
+
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = (View) inflater.inflate(R.layout.recycler_view_stickers, null);
+
+                stickersRecyclerView = dialogView.findViewById(R.id.recyclerView_image);
+
+                stickersRecyclerView.setHasFixedSize(true);
+                //This defines the way in which the RecyclerView is oriented
+                stickersRecyclerView.setLayoutManager(new LinearLayoutManager(StickerActivity.this));
+
+                //Associates the adapter with the RecyclerView
+                stickersRecyclerView.setAdapter(new StickerImageAdapter(stickerList, StickerActivity.this));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "getUser:onCancelled", databaseError.toException());
+                // ...
+            }
+        });
+
+
+
+//        stickerList.add(new StickerImage("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"));
 
 
 
