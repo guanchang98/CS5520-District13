@@ -60,8 +60,7 @@ public class StickerActivity extends AppCompatActivity {
     // User history list
     List<StickerUserHistory> userHistoryList;
 
-    List<String> selectedUsers;
-    List<String> selectedImageUrls;
+
 
     String username;
 
@@ -91,10 +90,6 @@ public class StickerActivity extends AppCompatActivity {
         });
 
         userList = new ArrayList<>();
-//        for (int i = 0; i < 30; i++) {
-//            String cur = "user" + i;
-//            userList.add(new StickerUser(cur));
-//        }
 
         // Write a message to the database
         dbRef = FirebaseDatabase.getInstance().getReference();
@@ -110,6 +105,7 @@ public class StickerActivity extends AppCompatActivity {
                 userList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
 //                    Log.d(TAG, data.getKey());
+                    if (data.getKey().equals(username)) continue;
                     StickerUser stickerUser = new StickerUser(data.getKey());
                     userList.add(stickerUser);
                 }
@@ -133,19 +129,9 @@ public class StickerActivity extends AppCompatActivity {
 
 
         stickerList = new ArrayList<>();
-//        URL res = getClass().getClassLoader().getResource("sticker_resources/angry.png");
-//        File file = null;
-//        try {
-//            file = Paths.get(res.toURI()).toFile();
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
-//        String absolutePath = file.getAbsolutePath();
-//        Log.v(TAG, absolutePath);
         stickerList.add(new StickerImage("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"));
 
-        selectedUsers = new ArrayList<>();
-        selectedImageUrls = new ArrayList<>();
+
 
 
         ChildEventListener childEventListener = new ChildEventListener() {
@@ -238,19 +224,31 @@ public class StickerActivity extends AppCompatActivity {
 
         builder.setView(dialogView);
 
-        for (StickerUser stickerUser : userList) {
-            if (stickerUser.isSelected()) selectedUsers.add(stickerUser.getUsername());
-        }
 
-        for (StickerImage stickerImage : stickerList) {
-            if (stickerImage.isSelected()) selectedImageUrls.add(stickerImage.getImagePath());
-        }
 
 
         builder.setPositiveButton(R.string.textView_sticker_dialog_send, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                selectedImageUrls.add("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU");
+                List<String> selectedUsers = new ArrayList<>();
+                List<String> selectedImageUrls = new ArrayList<>();
+                for (StickerUser stickerUser : userList) {
+                    if (stickerUser.isSelected()) selectedUsers.add(stickerUser.getUsername());
+                }
+
+                for (StickerImage stickerImage : stickerList) {
+                    if (stickerImage.isSelected()) selectedImageUrls.add(stickerImage.getImagePath());
+                }
+                if (selectedUsers.size() == 0) {
+                    Toast.makeText(StickerActivity.this, "Please choose at least one user!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (selectedImageUrls.size() == 0) {
+                    Toast.makeText(StickerActivity.this, "Please choose at least one sticker!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+//                selectedImageUrls.add("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU");
                 for (String user : selectedUsers) {
                     for (String url : selectedImageUrls) {
 //                        Log.v(TAG, user + " " + url);
