@@ -4,24 +4,28 @@ import java.net.URL;
 
 public class StickerUserHistory {
     private final String userName;
-    private final URL stickerSent;
-    private final URL stickerReceived;
+    private final URL stickerURL;
+//    private final URL stickerSent;
+//    private final URL stickerReceived;
 
-    public StickerUserHistory(String userName, URL stickerSent, URL stickerReceived) {
+    public StickerUserHistory(String userName, URL stickerURL) {
         this.userName = userName;
-        this.stickerSent = stickerSent;
-        this.stickerReceived = stickerReceived;
+        this.stickerURL = stickerURL;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public URL getStickerSent() {
-        return stickerSent;
+    public URL getStickerURL() {
+        return stickerURL;
     }
 
-    public URL getStickerReceived() {
-        return stickerReceived;
-    }
+//    public URL getStickerSent() {
+//        return stickerSent;
+//    }
+//
+//    public URL getStickerReceived() {
+//        return stickerReceived;
+//    }
 }
