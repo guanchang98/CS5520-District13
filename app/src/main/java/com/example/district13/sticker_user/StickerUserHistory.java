@@ -1,14 +1,13 @@
 package com.example.district13.sticker_user;
 
-import java.net.URL;
 
 public class StickerUserHistory {
     private final String userName;
-    private final URL stickerURL;
+    private final String stickerURL;
 //    private final URL stickerSent;
 //    private final URL stickerReceived;
 
-    public StickerUserHistory(String userName, URL stickerURL) {
+    public StickerUserHistory(String userName, String stickerURL) {
         this.userName = userName;
         this.stickerURL = stickerURL;
     }
@@ -17,7 +16,7 @@ public class StickerUserHistory {
         return userName;
     }
 
-    public URL getStickerURL() {
+    public String getStickerURL() {
         return stickerURL;
     }
 

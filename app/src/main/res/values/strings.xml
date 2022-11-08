@@ -21,4 +21,6 @@
     <string name="textView_sticker_dialog_send_fail">Failed to send stickers to users!</string>
     <string name="history">history</string>
     <string name="sticker_sent">Sticker Sent:</string>
+    <string name="channel_name">sticker_channel</string>
+    <string name="channel_description">The notification channel for sticker activity</string>
 </resources>

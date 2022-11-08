@@ -3,15 +3,16 @@ package com.example.district13;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,13 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -48,6 +44,10 @@ import java.util.List;
 
 public class StickerActivity extends AppCompatActivity {
     private static final String TAG = "StickerActivity";
+
+    DatabaseReference dbRef;
+
+    private final String CHANNEL_ID = "sticker_activity";
 
     TextView welcomeText;
     RecyclerView usersRecyclerView;
@@ -57,7 +57,7 @@ public class StickerActivity extends AppCompatActivity {
     List<StickerUserHistory> userHistoryList;
 
     List<String> selectedUsers;
-    List<String> selectedImagePaths;
+    List<String> selectedImageUrls;
 
     String username;
 
@@ -70,6 +70,8 @@ public class StickerActivity extends AppCompatActivity {
         username = intent.getStringExtra("Username");
         welcomeText = findViewById(R.id.textView_sticker_welcome);
         welcomeText.setText(getString(R.string.text_sticker_welcome_user, username));
+
+        createNotificationChannel();
 
         // Navigate to user history
         Button stickerHistory = findViewById(R.id.history);
@@ -87,17 +89,19 @@ public class StickerActivity extends AppCompatActivity {
 //        }
 
         // Write a message to the database
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-//        dbRef.child("users").child("user0").child("sent_stickers").setValue(new ArrayList<>(Arrays.asList("sent_image_0")));
-//        dbRef.child("users").child("user0").child("received_stickers").setValue(new ArrayList<>(Arrays.asList("received_image_0")));
+        dbRef = FirebaseDatabase.getInstance().getReference();
+//        for (int i = 0; i < 10; i++) {
+//            dbRef.child("users").child("user" + i).child("sent_stickers").push().setValue(new StickerUserHistory("tester", "testURL"));
+//            dbRef.child("users").child("user" + i).child("received_stickers").push().setValue(new StickerUserHistory("tester", "testURL"));
+//        }
         dbRef.child("imageURLs").child("0").setValue("0.png");
-        dbRef.child("users").child("user0").child("received_stickers").push().setValue("sticker3");
+
         dbRef.child("users").orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    Log.d(TAG, data.getKey());
+//                    Log.d(TAG, data.getKey());
                     StickerUser stickerUser = new StickerUser(data.getKey());
                     userList.add(stickerUser);
                 }
@@ -110,7 +114,6 @@ public class StickerActivity extends AppCompatActivity {
                 //Associates the adapter with the RecyclerView
                 usersRecyclerView.setAdapter(new StickerUserAdapter(userList, StickerActivity.this));
 
-                Log.v(TAG, userList.size() + " before");
             }
 
             @Override
@@ -121,9 +124,6 @@ public class StickerActivity extends AppCompatActivity {
         });
 
 
-
-
-        Log.v(TAG, "Initialize sticker list...");
         stickerList = new ArrayList<>();
 //        URL res = getClass().getClassLoader().getResource("sticker_resources/angry.png");
 //        File file = null;
@@ -136,20 +136,15 @@ public class StickerActivity extends AppCompatActivity {
 //        Log.v(TAG, absolutePath);
 
         selectedUsers = new ArrayList<>();
-        selectedImagePaths = new ArrayList<>();
+        selectedImageUrls = new ArrayList<>();
 
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                Log.d(TAG, "onChildAdded:" + dataSnapshot.getKey());
-                String cur = (String) dataSnapshot.getValue();
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(StickerActivity.this, "channel_id")
-                        .setSmallIcon(R.drawable.ic_launcher_foreground)
-                        .setContentTitle("Receive new sticker")
-                        .setContentText("Someone send you a new sticker " + cur)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
+                Log.d(TAG, "onChildAdded:" + dataSnapshot.child("userName").getValue());
+                String cur = (String) dataSnapshot.child("userName").getValue();
+                showNotification(cur);
             }
 
             @Override
@@ -178,6 +173,33 @@ public class StickerActivity extends AppCompatActivity {
 
     }
 
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        CharSequence name = getString(R.string.channel_name);
+        String description = getString(R.string.channel_description);
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription(description);
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
+
+    private void showNotification(String sentUser) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(StickerActivity.this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Receive new sticker")
+                .setContentText(sentUser + " send you a new sticker ")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(StickerActivity.this);
+
+// notificationId is a unique int for each notification that you must define
+        int notificationId = 1233425;
+        notificationManager.notify(notificationId, builder.build());
+    }
+
     public void showSelectStickersDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -191,11 +213,30 @@ public class StickerActivity extends AppCompatActivity {
 
         StickerImageAdapter adapter = new StickerImageAdapter(stickerList, StickerActivity.this);
         rv.setAdapter(adapter);
+
+        for (StickerUser stickerUser : userList) {
+            if (stickerUser.isSelected()) selectedUsers.add(stickerUser.getUsername());
+        }
+
+        for (StickerImage stickerImage : stickerList) {
+            if (stickerImage.isSelected()) selectedImageUrls.add(stickerImage.getImagePath());
+        }
+
+
         builder.setPositiveButton(R.string.textView_sticker_dialog_send, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO: Add all selected stickers' paths to all selected users
-                Log.v(TAG, userList.size() + " after");
+                selectedImageUrls.add("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU");
+                for (String user : selectedUsers) {
+                    for (String url : selectedImageUrls) {
+//                        Log.v(TAG, user + " " + url);
+                        StickerUserHistory sent = new StickerUserHistory(username, url);
+                        StickerUserHistory received = new StickerUserHistory(user, url);
+                        dbRef.child("users").child(user).child("received_stickers").push().setValue(sent);
+                        dbRef.child("users").child(username).child("sent_stickers").push().setValue(received);
+                    }
+                }
+
                 Toast.makeText(StickerActivity.this, "Send stickers successfully！", Toast.LENGTH_SHORT).show();
             }
         });
