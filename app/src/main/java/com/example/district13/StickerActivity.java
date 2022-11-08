@@ -12,8 +12,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -70,6 +74,10 @@ public class StickerActivity extends AppCompatActivity {
         username = intent.getStringExtra("Username");
         welcomeText = findViewById(R.id.textView_sticker_welcome);
         welcomeText.setText(getString(R.string.text_sticker_welcome_user, username));
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
 
         createNotificationChannel();
 
@@ -144,7 +152,8 @@ public class StickerActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
                 Log.d(TAG, "onChildAdded:" + dataSnapshot.child("userName").getValue());
                 String cur = (String) dataSnapshot.child("userName").getValue();
-                showNotification(cur);
+                String urlString = (String) dataSnapshot.child("stickerURL").getValue();
+                showNotification(cur, urlString);
             }
 
             @Override
@@ -187,12 +196,23 @@ public class StickerActivity extends AppCompatActivity {
         notificationManager.createNotificationChannel(channel);
     }
 
-    private void showNotification(String sentUser) {
+    private void showNotification(String sentUser, String urlString) {
+        Bitmap myBitmap = null;
+        try {
+            URL url = new URL(urlString);
+            myBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        } catch(IOException e) {
+            System.out.println(e);
+        }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(StickerActivity.this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentTitle("Receive new sticker")
                 .setContentText(sentUser + " send you a new sticker ")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setLargeIcon(myBitmap)
+                .setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(myBitmap)
+                        .bigLargeIcon(null));
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(StickerActivity.this);
 
 // notificationId is a unique int for each notification that you must define
