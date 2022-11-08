@@ -136,7 +136,7 @@ public class StickerActivity extends AppCompatActivity {
         dbRef.child("imageURLs").orderByKey().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userList.clear();
+                stickerList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
 //                    Log.d(TAG, data.getKey());
                     StickerImage stickerImage = new StickerImage((String) data.getValue());
@@ -163,10 +163,6 @@ public class StickerActivity extends AppCompatActivity {
                 // ...
             }
         });
-
-
-
-//        stickerList.add(new StickerImage("https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"));
 
 
 
