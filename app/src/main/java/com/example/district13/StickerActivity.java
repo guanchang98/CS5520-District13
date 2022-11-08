@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.district13.sticker_image.StickerImage;
 import com.example.district13.sticker_image.StickerImageAdapter;
 import com.example.district13.sticker_user.StickerUser;
 import com.example.district13.sticker_user.StickerUserAdapter;
+import com.example.district13.sticker_user.StickerUserHistory;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -51,6 +53,8 @@ public class StickerActivity extends AppCompatActivity {
     RecyclerView usersRecyclerView;
     List<StickerUser> userList;
     List<StickerImage> stickerList;
+    // User history list
+    List<StickerUserHistory> userHistoryList;
 
     List<String> selectedUsers;
     List<String> selectedImagePaths;
@@ -66,6 +70,15 @@ public class StickerActivity extends AppCompatActivity {
         username = intent.getStringExtra("Username");
         welcomeText = findViewById(R.id.textView_sticker_welcome);
         welcomeText.setText(getString(R.string.text_sticker_welcome_user, username));
+
+        // Navigate to user history
+        Button stickerHistory = findViewById(R.id.history);
+        stickerHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StickerActivity.this, StickerHistory.class));
+            }
+        });
 
         userList = new ArrayList<>();
 //        for (int i = 0; i < 30; i++) {
