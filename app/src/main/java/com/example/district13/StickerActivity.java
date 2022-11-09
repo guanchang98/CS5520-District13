@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.district13.R;
 import com.example.district13.sticker_image.StickerImage;
 import com.example.district13.sticker_image.StickerImageAdapter;
 import com.example.district13.sticker_user.StickerUser;
@@ -220,7 +221,7 @@ public class StickerActivity extends AppCompatActivity {
             System.out.println(e);
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(StickerActivity.this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_stat_name)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Receive new sticker")
                 .setContentText(sentUser + " send you a new sticker ")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
