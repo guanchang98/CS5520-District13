@@ -34,12 +34,14 @@ public class StickerUserAdapter extends RecyclerView.Adapter<StickerUserViewHold
     public void onBindViewHolder(@NonNull StickerUserViewHolder holder, int position) {
         final StickerUser user = users.get(position);
         holder.username.setText(users.get(position).getUsername());
-        holder.view.setBackgroundColor(user.isSelected() ? Color.YELLOW : Color.WHITE);
+        if(user.isSelected())
+            holder.view.setBackgroundColor(Color.GRAY);
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 user.setSelected(!user.isSelected());
-                holder.view.setBackgroundColor(user.isSelected() ? Color.YELLOW : Color.WHITE);
+                if(user.isSelected())
+                    holder.view.setBackgroundColor(Color.GRAY);
             }
         });
     }
