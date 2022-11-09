@@ -1,6 +1,5 @@
 package com.example.district13;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -10,19 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,8 +26,7 @@ import com.example.district13.sticker_image.StickerImage;
 import com.example.district13.sticker_image.StickerImageAdapter;
 import com.example.district13.sticker_user.StickerUser;
 import com.example.district13.sticker_user.StickerUserAdapter;
-import com.example.district13.sticker_user.StickerUserHistory;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.district13.sticker_user_history.StickerUserHistory;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,11 +35,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class StickerActivity extends AppCompatActivity {
@@ -287,8 +280,8 @@ public class StickerActivity extends AppCompatActivity {
                 for (String user : selectedUsers) {
                     for (String url : selectedImageUrls) {
 //                        Log.v(TAG, user + " " + url);
-                        StickerUserHistory sent = new StickerUserHistory(username, url);
-                        StickerUserHistory received = new StickerUserHistory(user, url);
+                        StickerUserHistory sent = new StickerUserHistory(username, url, LocalDate.now().toString());
+                        StickerUserHistory received = new StickerUserHistory(user, url, LocalDate.now().toString());
                         dbRef.child("users").child(user).child("received_stickers").push().setValue(sent);
                         dbRef.child("users").child(username).child("sent_stickers").push().setValue(received);
                     }
@@ -308,6 +301,7 @@ public class StickerActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
 
 
 

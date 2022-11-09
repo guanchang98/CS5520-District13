@@ -15,6 +15,6 @@ public class StickerImageViewHolder extends RecyclerView.ViewHolder {
     public StickerImageViewHolder(@NonNull View itemView) {
         super(itemView);
         this.view = itemView;
-        this.image = itemView.findViewById(R.id.imageView_punk);
+        this.image = itemView.findViewById(R.id.imageView_history_sticker);
     }
 }
