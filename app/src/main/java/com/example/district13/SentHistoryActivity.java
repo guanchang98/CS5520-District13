@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.district13.sticker_user.StickerUser;
 import com.example.district13.sticker_user.StickerUserAdapter;
@@ -29,6 +30,7 @@ public class SentHistoryActivity extends AppCompatActivity {
     DatabaseReference dbRef;
     List<StickerUserHistory> userHistoryList;
     RecyclerView userHistoryRecyclerView;
+    TextView sendCount;
 
     String username;
 
@@ -47,14 +49,17 @@ public class SentHistoryActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userHistoryList.clear();
+                int count = 0;
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
 //                    Log.d(TAG, data.getKey());
+                    count++;
                     String userName = (String) data.child("userName").getValue();
                     String imageUrl = (String) data.child("stickerURL").getValue();
                     String date = (String) data.child("date").getValue();
                     userHistoryList.add(new StickerUserHistory(userName, imageUrl, date));
                 }
                 userHistoryRecyclerView = findViewById(R.id.recyclerView_history_sent);
+
 
                 userHistoryRecyclerView.setHasFixedSize(true);
                 //This defines the way in which the RecyclerView is oriented

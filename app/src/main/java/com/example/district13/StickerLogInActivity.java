@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class StickerLogInActivity extends AppCompatActivity {
 
     EditText editText;
@@ -29,6 +32,7 @@ public class StickerLogInActivity extends AppCompatActivity {
             Toast.makeText(StickerLogInActivity.this, "Please Input Your Username!", Toast.LENGTH_SHORT).show();
             return;
         }
+
         intent.putExtra("Username", username);
         startActivity(intent);
     }

@@ -27,4 +27,5 @@
     <string name="sticker_received">Sticker Received:</string>
     <string name="button_history_sent">Sent Stickers</string>
     <string name="button_history_received">Received History</string>
+    <string name="about">About</string>
 </resources>
