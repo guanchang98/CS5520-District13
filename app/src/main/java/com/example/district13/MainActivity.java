@@ -14,6 +14,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button about = findViewById(R.id.about);
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, About.class));
+            }
+        });
+
         Button serviceBtn = findViewById(R.id.button_service);
         serviceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -21,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ServiceActivity.class));
             }
         });
+
         Button stickerBtn = findViewById(R.id.button_sticker);
         stickerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
