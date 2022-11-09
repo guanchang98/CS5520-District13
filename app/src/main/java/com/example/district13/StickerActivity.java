@@ -59,8 +59,6 @@ public class StickerActivity extends AppCompatActivity {
     RecyclerView stickersRecyclerView;
     List<StickerUser> userList;
     List<StickerImage> stickerList;
-    // User history list
-    List<StickerUserHistory> userHistoryList;
 
     String username;
 
