@@ -78,12 +78,16 @@ public class StickerActivity extends AppCompatActivity {
 
         createNotificationChannel();
 
+        // Save the username for User History
+        Intent intentHistory = new Intent(this, StickerHistory.class);
+        intentHistory.putExtra("UsernameHistory", username);
+
         // Navigate to user history
         Button stickerHistory = findViewById(R.id.history);
         stickerHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(StickerActivity.this, StickerHistory.class));
+                startActivity(intentHistory);
             }
         });
 

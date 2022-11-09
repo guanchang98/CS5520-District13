@@ -24,4 +24,5 @@
     <string name="channel_name">sticker_channel</string>
     <string name="channel_description">The notification channel for sticker activity</string>
     <string name="user">User:</string>
+    <string name="sticker_received">Sticker Received:</string>
 </resources>
