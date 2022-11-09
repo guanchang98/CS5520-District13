@@ -40,12 +40,14 @@ public class StickerImageAdapter extends RecyclerView.Adapter<StickerImageViewHo
         Glide.with(context)
                 .load(images.get(position).getImagePath())
                 .into(holder.image);
-        holder.view.setBackgroundColor(stickerImage.isSelected() ? Color.YELLOW : Color.WHITE);
+        if(stickerImage.isSelected())
+            holder.view.setBackgroundColor(Color.LTGRAY);
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stickerImage.setSelected(!stickerImage.isSelected());
-                holder.view.setBackgroundColor(stickerImage.isSelected() ? Color.YELLOW : Color.WHITE);
+                if(stickerImage.isSelected())
+                    holder.view.setBackgroundColor(Color.LTGRAY);
             }
         });
     }

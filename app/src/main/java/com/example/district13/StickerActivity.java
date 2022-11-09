@@ -149,7 +149,7 @@ public class StickerActivity extends AppCompatActivity {
                 stickersRecyclerView = dialogView.findViewById(R.id.recyclerView_image);
 
                 stickersRecyclerView.setHasFixedSize(true);
-                //This defines the way in which the RecyclerView is oriented
+                //This defines the way in which the RecyclerView6is oriented
                 stickersRecyclerView.setLayoutManager(new LinearLayoutManager(StickerActivity.this));
 
                 //Associates the adapter with the RecyclerView
