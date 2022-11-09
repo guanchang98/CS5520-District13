@@ -43,6 +43,7 @@ public class SentHistoryActivity extends AppCompatActivity {
         username = intent.getStringExtra("Username");
 
         userHistoryList = new ArrayList<>();
+        sendCount = findViewById(R.id.textView_sent_title);
 
         dbRef = FirebaseDatabase.getInstance().getReference();
         dbRef.child("users").child(username).child("sent_stickers").orderByKey().addValueEventListener(new ValueEventListener() {
@@ -58,8 +59,9 @@ public class SentHistoryActivity extends AppCompatActivity {
                     String date = (String) data.child("date").getValue();
                     userHistoryList.add(new StickerUserHistory(userName, imageUrl, date));
                 }
-                userHistoryRecyclerView = findViewById(R.id.recyclerView_history_sent);
 
+                sendCount.setText("Sent History " + "(" + count + " total)");
+                userHistoryRecyclerView = findViewById(R.id.recyclerView_history_sent);
 
                 userHistoryRecyclerView.setHasFixedSize(true);
                 //This defines the way in which the RecyclerView is oriented
