@@ -38,5 +38,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, StickerLogInActivity.class));
             }
         });
+
+        Button teaTalksBtn = findViewById(R.id.button_teatalks);
+        teaTalksBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, TeaTalksLoginActivity.class));
+            }
+        });
     }
 }
