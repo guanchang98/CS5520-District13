@@ -29,4 +29,6 @@
     <string name="button_history_received">Received History</string>
     <string name="about">About</string>
     <string name="button_tea_talks">Tea Talks</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
