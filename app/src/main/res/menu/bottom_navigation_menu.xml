@@ -3,21 +3,21 @@
     <item
         android:id="@+id/page_feed"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_feed"
         android:title="Feed"/>
     <item
         android:id="@+id/page_friend_list"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_friends"
         android:title="Friends"/>
     <item
         android:id="@+id/page_create_post"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_post"
         android:title="Post"/>
     <item
         android:id="@+id/page_account"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_foreground"
+        android:icon="@drawable/ic_account"
         android:title="Account"/>
 </menu>
