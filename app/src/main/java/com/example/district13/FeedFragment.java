@@ -2,11 +2,21 @@ package com.example.district13;
 
 import android.os.Bundle;
 
+import androidx.annotation.ContentView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.district13.sticker_user.StickerUserAdapter;
+import com.example.district13.teatalks_feed.FeedItem;
+import com.example.district13.teatalks_feed.FeedItemAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,11 +64,23 @@ public class FeedFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    
+    private List<FeedItem> feedItemList;
+    private RecyclerView feedItemRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feed, container, false);
+        feedItemList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            feedItemList.add(new FeedItem("Chang Guan", "2022/12/06", "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is the fourth line"));
+        }
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
+        feedItemRecyclerView.setHasFixedSize(true);
+        feedItemRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        feedItemRecyclerView.setAdapter(new FeedItemAdapter(feedItemList, getContext()));
+        return view;
     }
 }
