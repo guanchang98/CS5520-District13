@@ -33,4 +33,12 @@
         android:text="Your Feed"
         android:textSize="30sp" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginStart="10dp" />
+
+
 </FrameLayout>
