@@ -109,6 +109,9 @@
         <activity
             android:name=".PostActivity"
             android:configChanges="orientation" />
+        <activity
+            android:name=".FeedFragment"
+            android:configChanges="orientation" />
     </application>
 
 </manifest>

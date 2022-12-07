@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -126,6 +127,7 @@ public class PostActivity extends AppCompatActivity {
                 else {
                     uploadData(title, content, tags, String.valueOf(image_uri));
                 }
+
             }
         });
     }
@@ -155,6 +157,7 @@ public class PostActivity extends AppCompatActivity {
                                 hashMap.put("pContent", content);
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
+                                // add likes field
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                                 ref.child(timeStamp).setValue(hashMap)
