@@ -117,7 +117,7 @@ public class PostActivity extends AppCompatActivity {
                     return;
                 }
                 if(TextUtils.isEmpty(tags)) {
-                    Toast.makeText(PostActivity.this, "Please enter POst Tags", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Please enter Post Tags", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(image_uri == null) {

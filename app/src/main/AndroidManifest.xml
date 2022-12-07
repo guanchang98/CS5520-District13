@@ -106,6 +106,9 @@
             android:name=".ServiceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="At Your Service" />
+        <activity
+            android:name=".PostActivity"
+            android:configChanges="orientation" />
     </application>
 
 </manifest>
