@@ -1,6 +1,7 @@
 package com.example.district13.teatalks_feed;
 
 public class FeedItem {
+    private final String posterID;
     private final String poster;
     private final String date;
     private final String imageURL;
@@ -16,7 +17,8 @@ public class FeedItem {
         return like;
     }
 
-    public FeedItem(String poster, String date, String imageURL, String avatarURL, String instruction, boolean like) {
+    public FeedItem(String posterID, String poster, String date, String imageURL, String avatarURL, String instruction, boolean like) {
+        this.posterID = posterID;
         this.poster = poster;
         this.date = date;
         this.imageURL = imageURL;
@@ -43,5 +45,9 @@ public class FeedItem {
 
     public String getInstruction() {
         return instruction;
+    }
+
+    public String getId() {
+        return posterID;
     }
 }

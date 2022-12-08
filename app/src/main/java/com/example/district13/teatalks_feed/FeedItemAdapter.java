@@ -1,6 +1,7 @@
 package com.example.district13.teatalks_feed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.district13.FeedActivity;
+import com.example.district13.OthersAccountActivity;
 import com.example.district13.R;
+import com.example.district13.RegisterActivity;
 import com.example.district13.sticker_user.StickerUser;
 
 import java.util.List;
@@ -33,17 +37,18 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FeedItemViewHolder holder, int position) {
-        holder.poster.setText(feedItems.get(position).getPoster());
-        holder.date.setText(feedItems.get(position).getDate());
-        holder.instruction.setText(feedItems.get(position).getInstruction());
+        final FeedItem feedItem = feedItems.get(position);
+        holder.poster.setText(feedItem.getPoster());
+        holder.date.setText(feedItem.getDate());
+        holder.instruction.setText(feedItem.getInstruction());
         // Handle image
         Glide.with(context)
-                .load(feedItems.get(position).getAvatarURL())
+                .load(feedItem.getAvatarURL())
                 .into(holder.avatar);
         Glide.with(context)
-                .load(feedItems.get(position).getImageURL())
+                .load(feedItem.getImageURL())
                 .into(holder.image);
-        final FeedItem feedItem = feedItems.get(position);
+        
         if(feedItem.isLike()) {
             Glide.with(context)
                     .load(R.drawable.ic_like)
@@ -67,6 +72,26 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
                             .load(R.drawable.ic_unlike)
                             .into(holder.likeIcon);
                 }
+            }
+        });
+
+        holder.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent =  new Intent(context, OthersAccountActivity.class);
+                intent.putExtra("PosterID", feedItem.getId());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.poster.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent =  new Intent(context, OthersAccountActivity.class);
+                intent.putExtra("PosterID", feedItem.getId());
+                context.startActivity(intent);
             }
         });
     }

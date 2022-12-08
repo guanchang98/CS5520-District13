@@ -74,7 +74,7 @@ public class FeedFragment extends Fragment {
         // Inflate the layout for this fragment
         feedItemList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            feedItemList.add(new FeedItem("Chang Guan", "2022/12/06", "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is the fourth line", true));
+            feedItemList.add(new FeedItem("100014", "Chang Guan", "2022/12/06", "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU", "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is the fourth line", true));
         }
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
         feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
