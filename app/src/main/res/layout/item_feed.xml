@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/textView_feed_poster"
-        android:layout_width="221dp"
+        android:layout_width="168dp"
         android:layout_height="27dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -54,13 +54,23 @@
 
     <TextView
         android:id="@+id/textView_feed_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="98dp"
+        android:layout_height="27dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="92dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_feed_item_like"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_unlike" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

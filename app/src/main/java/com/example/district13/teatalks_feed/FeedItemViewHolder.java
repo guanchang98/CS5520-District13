@@ -17,6 +17,7 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
     public TextView instruction;
     public ImageView avatar;
     public ImageView image;
+    public ImageView likeIcon;
 
     public FeedItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -26,6 +27,7 @@ public class FeedItemViewHolder extends RecyclerView.ViewHolder {
         this.instruction = itemView.findViewById(R.id.textView_feed_instruction);
         this.avatar = itemView.findViewById(R.id.imageView_feed_avatar);
         this.image = itemView.findViewById(R.id.imageView_feed_image);
+        this.likeIcon = itemView.findViewById(R.id.imageView_feed_item_like);
     }
 
 }

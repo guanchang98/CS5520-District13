@@ -1,7 +1,9 @@
 package com.example.district13.teatalks_feed;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.district13.R;
+import com.example.district13.sticker_user.StickerUser;
 
 import java.util.List;
 
@@ -40,6 +43,32 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         Glide.with(context)
                 .load(feedItems.get(position).getImageURL())
                 .into(holder.image);
+        final FeedItem feedItem = feedItems.get(position);
+        if(feedItem.isLike()) {
+            Glide.with(context)
+                    .load(R.drawable.ic_like)
+                    .into(holder.likeIcon);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.ic_unlike)
+                    .into(holder.likeIcon);
+        }
+
+        holder.likeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                feedItem.setLike(!feedItem.isLike());
+                if(feedItem.isLike()) {
+                    Glide.with(context)
+                            .load(R.drawable.ic_like)
+                            .into(holder.likeIcon);
+                } else {
+                    Glide.with(context)
+                            .load(R.drawable.ic_unlike)
+                            .into(holder.likeIcon);
+                }
+            }
+        });
     }
 
     @Override
