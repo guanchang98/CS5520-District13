@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,15 +44,12 @@ import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
-    FirebaseAuth firebaseAuth;
-    DatabaseReference userDBRef;
-
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
-
     private static final int IMAGE_PICK_CAMERA_CODE = 300;
     private static final int IMAGE_PICK_GALLERY_CODE = 400;
-
+    FirebaseAuth firebaseAuth;
+    DatabaseReference userDBRef;
     String[] cameraPermissions;
     String[] storagePermissions;
 
@@ -74,17 +70,17 @@ public class PostActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         firebaseAuth = FirebaseAuth.getInstance();
         checkUserStatus();
-        cameraPermissions = new String[] {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         userDBRef = FirebaseDatabase.getInstance().getReference("appUsers");
         Query query = userDBRef.orderByChild("email").equalTo(email);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds: snapshot.getChildren()) {
-                    name = ""+ds.child("name").getValue();
-                    email = ""+ds.child("email").getValue();
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    name = "" + ds.child("name").getValue();
+                    email = "" + ds.child("email").getValue();
                 }
             }
 
@@ -101,6 +97,7 @@ public class PostActivity extends AppCompatActivity {
         postAction = findViewById(R.id.postButton);
         uploadText = findViewById(R.id.uploadText);
         backToFeed = findViewById(R.id.backFeedButton);
+
 
         backToFeed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,26 +120,33 @@ public class PostActivity extends AppCompatActivity {
                 String content = postContent.getText().toString().trim();
                 String tags = postTags.getText().toString().trim();
                 pLikes = 0;
-                if(TextUtils.isEmpty(title)) {
+                if (TextUtils.isEmpty(title)) {
                     Toast.makeText(PostActivity.this, "Please enter Title", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(content)) {
+                if (TextUtils.isEmpty(content)) {
                     Toast.makeText(PostActivity.this, "Please enter Post Content", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(tags)) {
+                if (TextUtils.isEmpty(tags)) {
                     Toast.makeText(PostActivity.this, "Please enter Post Tags", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(image_uri == null) {
+                if (image_uri == null) {
                     uploadData(title, content, tags, "noImage");
-                }
-                else {
+                } else {
                     uploadData(title, content, tags, String.valueOf(image_uri));
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        Intent intent = new Intent(PostActivity.this, FeedActivity.class);
+        PostActivity.this.startActivity(intent);
+        Log.d("PostActivity", "Back to Feed");
     }
 
     private void uploadData(String title, String content, String tags, String uri) {
@@ -153,14 +157,14 @@ public class PostActivity extends AppCompatActivity {
         if (!uri.equals("noImage")) {
             StorageReference ref = FirebaseStorage.getInstance().getReference().child(filePathAndName);
             ref.putFile(Uri.parse(uri))
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>(){
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful());
+                            while (!uriTask.isSuccessful()) ;
 
                             String downloadUri = uriTask.getResult().toString();
-                            if(uriTask.isSuccessful()) {
+                            if (uriTask.isSuccessful()) {
                                 HashMap<Object, String> hashMap = new HashMap<>();
                                 hashMap.put("uid", uid);
                                 hashMap.put("uName", name);
@@ -193,7 +197,7 @@ public class PostActivity extends AppCompatActivity {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 pd.dismiss();
-                                                Toast.makeText(PostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
                             }
@@ -203,11 +207,10 @@ public class PostActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             pd.dismiss();
-                            Toast.makeText(PostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
-        }
-        else {
+        } else {
             HashMap<Object, String> hashMap = new HashMap<>();
             hashMap.put("uid", uid);
             hashMap.put("uName", name);
@@ -239,18 +242,18 @@ public class PostActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             pd.dismiss();
-                            Toast.makeText(PostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
 
 
-        .addOnFailureListener(new OnFailureListener() {
-@Override
-public void onFailure(@NonNull Exception e) {
-        pd.dismiss();
-        Toast.makeText(PostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-        });
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
         }
     }
 
@@ -271,12 +274,12 @@ public void onFailure(@NonNull Exception e) {
         if (user != null) {
             email = user.getEmail();
             uid = user.getUid();
-        }
-        else {
+        } else {
             startActivity(new Intent(this, TeaTalksLoginActivity.class));
             finish();
         }
     }
+
     private void showImagePickDialog() {
         String[] options = {"Camera", "Gallery"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -284,14 +287,14 @@ public void onFailure(@NonNull Exception e) {
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (i==0){
+                if (i == 0) {
                     // camera
-                    if(!checkCameraPermission())
+                    if (!checkCameraPermission())
                         requestCameraPermission();
                     else
                         pickFromCamera();
                 }
-                if (i==1){
+                if (i == 1) {
                     // gallery
                     if (!checkStoragePermission())
                         requestStoragePermission();
@@ -344,32 +347,28 @@ public void onFailure(@NonNull Exception e) {
 
         switch (requestCode) {
             case CAMERA_REQUEST_CODE: {
-                if (grantResults.length>0){
+                if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean storageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
                     if (cameraAccepted && storageAccepted) {
                         pickFromCamera();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(this, "Please provide both Camera and Storage permissions.", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
 
                 }
             }
             break;
             case STORAGE_REQUEST_CODE: {
-                if (grantResults.length>0) {
+                if (grantResults.length > 0) {
                     boolean storageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (storageAccepted) {
                         pickFromGallery();
-                    }
-                    else {
+                    } else {
                         Toast.makeText(this, "Please provide Storage permission.", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
 
                 }
             }
@@ -379,14 +378,13 @@ public void onFailure(@NonNull Exception e) {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode == RESULT_OK) {
-            if(requestCode == IMAGE_PICK_GALLERY_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 image_uri = data.getData();
                 postImage.setImageURI(image_uri);
                 uploadText.setText("+ Upload Image");
 
-            }
-            else if(requestCode == IMAGE_PICK_CAMERA_CODE){
+            } else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 postImage.setImageURI(image_uri);
                 uploadText.setText("+ Upload Image");
             }
