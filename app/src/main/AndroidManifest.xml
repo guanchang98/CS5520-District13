@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -106,6 +107,12 @@
             android:name=".ServiceActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="At Your Service" />
+        <activity
+            android:name=".PostActivity"
+            android:configChanges="orientation" />
+        <activity
+            android:name=".FeedFragment"
+            android:configChanges="orientation" />
     </application>
 
 </manifest>

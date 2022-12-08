@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PostActivity"
+    android:layout_margin="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="200dp"
+            android:minHeight="100dp"
+            android:text="NEW POST!"
+            android:textStyle="bold"
+            android:textColor="@color/mocha"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            app:layout_constraintBottom_toTopOf="@id/postTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/postTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="112dp"
+            android:hint="Enter Post Title"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:minHeight="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <EditText
+            android:id="@+id/postContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:gravity="start"
+            android:hint="Enter Post Content"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minHeight="200dp"
+            android:padding="10dp"
+            android:singleLine="true"
+            app:layout_constraintTop_toBottomOf="@+id/postTitle"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/carob"
+            android:minHeight="200dp"
+            app:layout_constraintTop_toBottomOf="@+id/postContent"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/uploadText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:text="+ Upload Image"
+            android:textColor="@color/cream"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/postImage"
+            app:layout_constraintEnd_toEndOf="@+id/postImage"
+            app:layout_constraintStart_toStartOf="@+id/postImage"
+            app:layout_constraintTop_toTopOf="@+id/postImage" />
+
+        <EditText
+            android:id="@+id/tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="76dp"
+            android:gravity="start"
+            android:hint="Enter post tags"
+            android:minHeight="100dp"
+            app:layout_constraintTop_toBottomOf="@+id/postImage"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/postButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:minWidth="300dp"
+            android:minHeight="100dp"
+            android:text="Post!"
+            android:textAlignment="center"
+            android:textColor="@color/cream"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tags" />
+
+        <Button
+            android:id="@+id/backFeedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minWidth="300dp"
+            android:minHeight="100dp"
+            android:text="Back to Feed"
+            android:textAlignment="center"
+            android:textColor="@color/cream"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postButton" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
