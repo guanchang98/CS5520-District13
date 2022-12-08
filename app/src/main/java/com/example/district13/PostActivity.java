@@ -110,6 +110,7 @@ public class PostActivity extends AppCompatActivity {
                 Log.d("PostActivity", "Back to Feed");
             }
         });
+
         postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,6 +144,14 @@ public class PostActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(PostActivity.this, FeedActivity.class);
+        PostActivity.this.startActivity(intent);
+        Log.d("PostActivity", "Back to Feed");
+        finish();
     }
 
     private void uploadData(String title, String content, String tags, String uri) {
