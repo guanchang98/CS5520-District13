@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,8 +58,10 @@ public class PostActivity extends AppCompatActivity {
     String[] storagePermissions;
 
     EditText postTitle, postContent, postTags;
+    TextView uploadText;
     ImageView postImage;
-    Button postAction;
+    Button postAction, backToFeed;
+    int pLikes;
 
     String name, email, uid;
     Uri image_uri = null;
@@ -96,7 +99,17 @@ public class PostActivity extends AppCompatActivity {
         postTags = findViewById(R.id.tags);
         postImage = findViewById(R.id.postImage);
         postAction = findViewById(R.id.postButton);
+        uploadText = findViewById(R.id.uploadText);
+        backToFeed = findViewById(R.id.backFeedButton);
 
+        backToFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostActivity.this, FeedActivity.class);
+                PostActivity.this.startActivity(intent);
+                Log.d("PostActivity", "Back to Feed");
+            }
+        });
         postImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +122,7 @@ public class PostActivity extends AppCompatActivity {
                 String title = postTitle.getText().toString().trim();
                 String content = postContent.getText().toString().trim();
                 String tags = postTags.getText().toString().trim();
+                pLikes = 0;
                 if(TextUtils.isEmpty(title)) {
                     Toast.makeText(PostActivity.this, "Please enter Title", Toast.LENGTH_SHORT).show();
                     return;
@@ -127,7 +141,6 @@ public class PostActivity extends AppCompatActivity {
                 else {
                     uploadData(title, content, tags, String.valueOf(image_uri));
                 }
-
             }
         });
     }
@@ -157,6 +170,8 @@ public class PostActivity extends AppCompatActivity {
                                 hashMap.put("pContent", content);
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
+                                hashMap.put("pLikes", String.valueOf(pLikes));
+
                                 // add likes field
 
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
@@ -170,6 +185,7 @@ public class PostActivity extends AppCompatActivity {
                                                 postContent.setText("");
                                                 postTags.setText("");
                                                 postImage.setImageURI(null);
+                                                uploadText.setText("+ Upload Image");
                                                 image_uri = null;
                                             }
                                         })
@@ -202,6 +218,7 @@ public class PostActivity extends AppCompatActivity {
             hashMap.put("pTags", tags);
             hashMap.put("pImage", "noImage");
             hashMap.put("pTime", timeStamp);
+            hashMap.put("pLikes", String.valueOf(pLikes));
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
             ref.child(timeStamp).setValue(hashMap)
@@ -214,6 +231,7 @@ public class PostActivity extends AppCompatActivity {
                             postContent.setText("");
                             postTags.setText("");
                             postImage.setImageURI(null);
+                            uploadText.setText("+ Upload Image");
                             image_uri = null;
                         }
                     })
@@ -365,9 +383,12 @@ public void onFailure(@NonNull Exception e) {
             if(requestCode == IMAGE_PICK_GALLERY_CODE){
                 image_uri = data.getData();
                 postImage.setImageURI(image_uri);
+                uploadText.setText("+ Upload Image");
+
             }
             else if(requestCode == IMAGE_PICK_CAMERA_CODE){
                 postImage.setImageURI(image_uri);
+                uploadText.setText("+ Upload Image");
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

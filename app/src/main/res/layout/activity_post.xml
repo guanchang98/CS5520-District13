@@ -8,6 +8,7 @@
     android:layout_margin="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2dp"
@@ -64,6 +65,7 @@
             tools:layout_editor_absoluteX="0dp" />
 
         <TextView
+            android:id="@+id/uploadText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -91,16 +93,33 @@
             android:id="@+id/postButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="100dp"
+            android:layout_marginTop="40dp"
             android:minWidth="300dp"
-            android:layout_marginTop="52dp"
+            android:minHeight="100dp"
             android:text="Post!"
-            android:textSize="20dp"
-            android:textColor="@color/cream"
             android:textAlignment="center"
+            android:textColor="@color/cream"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.485"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tags" />
+
+        <Button
+            android:id="@+id/backFeedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minWidth="300dp"
+            android:minHeight="100dp"
+            android:text="Back to Feed"
+            android:textAlignment="center"
+            android:textColor="@color/cream"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/postButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
