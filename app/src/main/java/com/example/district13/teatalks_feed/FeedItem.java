@@ -16,13 +16,13 @@ public class FeedItem {
         return like;
     }
 
-    public FeedItem(String poster, String date, String imageURL, String avatarURL, String instruction) {
+    public FeedItem(String poster, String date, String imageURL, String avatarURL, String instruction, boolean like) {
         this.poster = poster;
         this.date = date;
         this.imageURL = imageURL;
         this.avatarURL = avatarURL;
         this.instruction = instruction;
-        this.like = false;
+        this.like = like;
     }
 
     public String getPoster() {
