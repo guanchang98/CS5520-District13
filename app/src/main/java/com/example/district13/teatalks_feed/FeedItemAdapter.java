@@ -40,14 +40,22 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         final FeedItem feedItem = feedItems.get(position);
         holder.poster.setText(feedItem.getPoster());
         holder.date.setText(feedItem.getDate());
-        holder.instruction.setText(feedItem.getInstruction());
-        // Handle image
+        holder.likeCount.setText(feedItem.getLikeCount());
         Glide.with(context)
                 .load(feedItem.getAvatarURL())
                 .into(holder.avatar);
-        Glide.with(context)
-                .load(feedItem.getImageURL())
-                .into(holder.image);
+        if (feedItem.getImageURL().equals("noImage")) {
+            holder.noImageInstruction.setText(feedItem.getInstruction());
+            holder.instruction.setVisibility(View.GONE);
+            holder.image.setVisibility(View.GONE);
+        } else {
+            holder.instruction.setText(feedItem.getInstruction());
+            // Handle image
+            Glide.with(context)
+                    .load(feedItem.getImageURL())
+                    .into(holder.image);
+        }
+
         
         if(feedItem.isLike()) {
             Glide.with(context)

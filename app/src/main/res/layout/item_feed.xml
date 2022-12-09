@@ -34,7 +34,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_feed_image" />
@@ -67,10 +66,29 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="6dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView_like_count"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_unlike" />
+
+    <TextView
+        android:id="@+id/textView_no_image"
+        android:layout_width="356dp"
+        android:layout_height="261dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_feed_poster" />
+
+    <TextView
+        android:id="@+id/textView_like_count"
+        android:layout_width="37dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_feed_item_like"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

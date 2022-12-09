@@ -3,7 +3,6 @@ package com.example.district13;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -12,16 +11,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +20,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,44 +45,35 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends Fragment {
-    private final String TAG = "AccountFragment";
-
-    //firebase
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-    FirebaseDatabase database;
-    DatabaseReference reference;
-
-    //storage
-    StorageReference storageReference;
-    //path the images of user account to be stored
-    String storagePath = "Users_Account_Imgs/";
-
-    //views
-    ImageView avatarIv;
-    TextView userEmailTv, userNameTv, userPostsTv, userFollowingTv, userFollowersTv;
-
-    //buttons
-    Button logOut;
-    FloatingActionButton editUser;
-
-    //progress dialog
-    ProgressDialog pd;
-
     //permissions
     private static final int CAMERA_REQ_CODE = 14;
     private static final int STORAGE_REQ_CODE = 24;
     private static final int IMAGE_FROM_CAMERA_REQ_CODE = 34;
     private static final int IMAGE_FROM_GALLERY_REQ_CODE = 44;
-
+    private final String TAG = "AccountFragment";
+    //firebase
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+    //storage
+    StorageReference storageReference;
+    //path the images of user account to be stored
+    String storagePath = "Users_Account_Imgs/";
+    //views
+    ImageView avatarIv;
+    TextView userEmailTv, userNameTv, userPostsTv, userFollowingTv, userFollowersTv;
+    //buttons
+    Button logOut;
+    FloatingActionButton editUser;
+    //progress dialog
+    ProgressDialog pd;
     //array of permissions
     String[] cameraPermissions;
     String[] storagePermissions;
@@ -128,14 +114,14 @@ public class AccountFragment extends Fragment {
 
         //init array permissions
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermissions = new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         //Get user data from database
         Query query = reference.orderByChild("email").equalTo(user.getEmail());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     //get data
                     String name = "" + dataSnapshot.child("name").getValue();
                     String email = "" + dataSnapshot.child("email").getValue();
@@ -205,8 +191,7 @@ public class AccountFragment extends Fragment {
                     pd.setMessage("Updating Avatar Photo");
                     accountUserAvatar = "avatar";
                     showAvatarDialog();
-                }
-                else if (option == 1) {
+                } else if (option == 1) {
                     //edit name
                     pd.setMessage("Updating User Name");
                     showPersonalInfoUpdateDialog("name");
@@ -285,8 +270,7 @@ public class AccountFragment extends Fragment {
                     } else {
                         chooseFromCamera();
                     }
-                }
-                else if (option == 1) {
+                } else if (option == 1) {
                     //choose from gallery
                     if (!checkStoragePermission()) {
                         requestStoragePermission();
@@ -329,7 +313,7 @@ public class AccountFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case CAMERA_REQ_CODE:{
+            case CAMERA_REQ_CODE: {
                 //choose from camera
                 if (grantResults.length > 0) {
                     boolean cameraAccept = grantResults[0] == PackageManager.PERMISSION_GRANTED;
@@ -342,7 +326,7 @@ public class AccountFragment extends Fragment {
                     }
                 }
             }
-            case STORAGE_REQ_CODE:{
+            case STORAGE_REQ_CODE: {
                 //choose from gallery
                 if (grantResults.length > 0) {
                     boolean writeStorageAccept = grantResults[1] == PackageManager.PERMISSION_GRANTED;
@@ -404,7 +388,7 @@ public class AccountFragment extends Fragment {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         //after image uploaded, update it in user's database info
                         Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                        while (!uriTask.isSuccessful());
+                        while (!uriTask.isSuccessful()) ;
                         Uri downloadUri = uriTask.getResult();
                         if (uriTask.isSuccessful()) {
                             HashMap<String, Object> res = new HashMap<>();

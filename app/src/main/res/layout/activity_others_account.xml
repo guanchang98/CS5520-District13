@@ -7,101 +7,99 @@
     tools:context=".OthersAccountActivity">
 
     <ImageView
-        android:id="@+id/user_selfie"
+        android:id="@+id/imageView_other_user_avatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginTop="100dp"
         android:background="@color/cardview_shadow_start_color"
-        android:src="@drawable/ic_add_user_selfie"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/ic_account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Username: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_selfie"
-        app:layout_constraintVertical_bias="0.038" />
-
-    <TextView
-        android:id="@+id/user_posts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Posts"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/user_following"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
-        app:layout_constraintVertical_bias="0.14" />
-
-    <TextView
-        android:id="@+id/user_following"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Following"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/user_followers"
-        app:layout_constraintStart_toEndOf="@+id/user_posts"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
-        app:layout_constraintVertical_bias="0.14" />
-
-    <TextView
-        android:id="@+id/user_followers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Followers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.301"
-        app:layout_constraintStart_toEndOf="@+id/user_following"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
-        app:layout_constraintVertical_bias="0.14" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/go_to_posts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="32dp"
         android:text="History Posts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_followings" />
 
     <TextView
-        android:id="@+id/user_email"
+        android:id="@+id/textView_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email:"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:text="Username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_name"
-        app:layout_constraintVertical_bias="0.03" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView_other_user_avatar" />
+
+    <TextView
+        android:id="@+id/textView_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Email"
+        app:layout_constraintEnd_toEndOf="@+id/textView_username"
+        app:layout_constraintStart_toStartOf="@+id/textView_username"
+        app:layout_constraintTop_toBottomOf="@+id/textView_username" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/switch_follow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:minHeight="48dp"
         android:text="Follow"
-        app:layout_constraintBaseline_toBaselineOf="@+id/user_name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toEndOf="@+id/user_name" />
+        app:layout_constraintStart_toEndOf="@+id/textView_username" />
+
+    <TextView
+        android:id="@+id/textView_followings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="132 Followings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_email" />
+
+    <TextView
+        android:id="@+id/textView_posts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="24dp"
+        android:text="0 Posts"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_followings"
+        app:layout_constraintEnd_toStartOf="@+id/textView_followings"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView1_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="13 Followers"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView_followings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_followings" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="754dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
