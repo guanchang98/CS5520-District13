@@ -26,7 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,7 +83,10 @@ public class FeedFragment extends Fragment {
     private List<FeedItem> feedItemList;
     private RecyclerView feedItemRecyclerView;
     private Set<String> followingIDs;
-    private List<String> postIDs;
+    private List<String> followingPostIds;
+    private List<String> recommendPostIds;
+
+    View view;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -92,7 +97,7 @@ public class FeedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        view = inflater.inflate(R.layout.fragment_feed, container, false);
 
         // Initialize firebase
         firebaseAuth = FirebaseAuth.getInstance();
@@ -101,29 +106,18 @@ public class FeedFragment extends Fragment {
         Query query = database.getReference("appUsers").child(user.getUid());
 
         followingIDs = new HashSet<>();
-        postIDs = new ArrayList<>();
+        followingPostIds = new ArrayList<>();
         feedItemList = new ArrayList<>();
+        recommendPostIds = new ArrayList<>();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.v("FeedFragment", user.getUid());
-                Set<String> postIDs = new HashSet<>();
+
                 for (DataSnapshot dataSnapshot : snapshot.child("following").getChildren()) {
                     followingIDs.add(dataSnapshot.getKey());
                 }
-                CollectFollowingPosts(followingIDs);
-                CollectRecentPosts(followingIDs);
-
-                for (String id : postIDs) {
-                    Log.v("FeedFragment Post id: ", id);
-
-                }
-
-                feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
-                feedItemRecyclerView.setHasFixedSize(true);
-                feedItemRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                feedItemRecyclerView.setAdapter(new FeedItemAdapter(feedItemList, getContext()));
+                CollectFollowingAndRecentPosts(followingIDs);
             }
 
             @Override
@@ -133,50 +127,100 @@ public class FeedFragment extends Fragment {
         });
 
 
-        for (int i = 0; i < 10; i++) {
-            feedItemList.add(new FeedItem("qm7GQmAXTvZpNK6ia33vmA9PQWw2", "Chang Guan",
-                    "2022/12/06",
-                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
-                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
-                    "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
-                            "the fourth line", true, "23", "New lemonade", "Original"));
-
-            feedItemList.add(new FeedItem("QDfCS5WM5Rf863P7CFS9o8C1BOW2", "Chang Guan",
-                    "2022/12/06",
-                    "noImage",
-                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
-                    "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
-                            "the fourth line", true, "34123", "Test", "test"));
-        }
+//        for (int i = 0; i < 10; i++) {
+//            feedItemList.add(new FeedItem("qm7GQmAXTvZpNK6ia33vmA9PQWw2", "Chang Guan",
+//                    "2022/12/06",
+//                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
+//                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
+//                    "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
+//                            "the fourth line", true, "23", "New lemonade", "Original", false));
+//
+//            feedItemList.add(new FeedItem("QDfCS5WM5Rf863P7CFS9o8C1BOW2", "Chang Guan",
+//                    "2022/12/06",
+//                    "noImage",
+//                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
+//                    "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
+//                            "the fourth line", true, "34123", "Test", "test", true));
+//        }
 
         return view;
     }
 
-    private void CollectFollowingPosts(Set<String> followingIDs) {
+    private void CollectFollowingAndRecentPosts(Set<String> followingIDs) {
         Query query = database.getReference("Posts").orderByKey().limitToLast(100);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    if (followingIDs.contains(dataSnapshot.child("uid"))) postIDs.add((String) dataSnapshot.getKey());
+                    if (followingIDs.contains((String) dataSnapshot.child("uid").getValue())) {
+                        Log.v("CollectFollowingPosts", "Following post is: " + dataSnapshot.getKey().toString());
+                        followingPostIds.add((String) dataSnapshot.getKey());
+                    }
                 }
-            }
+                Set<String> existedPosts = new HashSet<>(followingPostIds);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void CollectRecentPosts(Set<String> followingIDs) {
-        Query query = database.getReference("Posts").orderByKey().limitToLast(100);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    postIDs.add((String) dataSnapshot.getKey());
+                    Log.v("CollectRecentPosts", "Current post is: " + dataSnapshot.getKey().toString());
+                    if (!existedPosts.contains((String) dataSnapshot.getKey())) recommendPostIds.add((String) dataSnapshot.getKey());
                 }
+
+                DatabaseReference postRef = database.getReference("Posts");
+
+                postRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (String id : followingPostIds) {
+                            Log.v("Following post id:", "current post id: " + id);
+                            DataSnapshot dataSnapshot = snapshot.child(id);
+                            SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
+                            feedItemList.add(new FeedItem(
+                                    (String)dataSnapshot.child("uid").getValue(),
+                                    (String)dataSnapshot.child("name").getValue(),
+                                    sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
+                                    (String)dataSnapshot.child("pImage").getValue(),
+                                    (String)dataSnapshot.child("pAvatar").getValue(),
+                                    (String)dataSnapshot.child("pContent").getValue(),
+                                    dataSnapshot.child("pLikes").child("uid").exists(),
+                                    (String)dataSnapshot.child("pLikeCount").getValue(),
+                                    (String)dataSnapshot.child("pTitle").getValue(),
+                                    (String)dataSnapshot.child("pTags").getValue(),
+                                    true));
+                        }
+
+                        Log.v("Feed Item List size: ", "Feed Item list size: " + feedItemList.size());
+
+                        for (String id : recommendPostIds) {
+                            Log.v("Recommend post id: ", "current post id: " + id);
+                            DataSnapshot dataSnapshot = snapshot.child(id);
+                            SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
+                            feedItemList.add(new FeedItem(
+                                    (String)dataSnapshot.child("uid").getValue(),
+                                    (String)dataSnapshot.child("name").getValue(),
+                                    sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
+                                    (String)dataSnapshot.child("pImage").getValue(),
+                                    (String)dataSnapshot.child("pAvatar").getValue(),
+                                    (String)dataSnapshot.child("pContent").getValue(),
+                                    dataSnapshot.child("pLikes").child("uid").exists(),
+                                    (String)dataSnapshot.child("pLikeCount").getValue(),
+                                    (String)dataSnapshot.child("pTitle").getValue(),
+                                    (String)dataSnapshot.child("pTags").getValue(),
+                                    false));
+                        }
+
+                        feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
+                        feedItemRecyclerView.setHasFixedSize(true);
+                        feedItemRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                        feedItemRecyclerView.setAdapter(new FeedItemAdapter(feedItemList, getContext()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
             }
 
             @Override
