@@ -116,7 +116,8 @@ public class FeedFragment extends Fragment {
                 CollectRecentPosts(followingIDs);
 
                 for (String id : postIDs) {
-                    Log.v("FeedFragment", id);
+                    Log.v("FeedFragment Post id: ", id);
+
                 }
 
                 feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
@@ -133,19 +134,19 @@ public class FeedFragment extends Fragment {
 
 
         for (int i = 0; i < 10; i++) {
-            feedItemList.add(new FeedItem("QDfCS5WM5Rf863P7CFS9o8C1BOW2", "Chang Guan",
+            feedItemList.add(new FeedItem("qm7GQmAXTvZpNK6ia33vmA9PQWw2", "Chang Guan",
                     "2022/12/06",
                     "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
                     "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
                     "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
-                            "the fourth line", true, "23"));
+                            "the fourth line", true, "23", "New lemonade", "Original"));
 
             feedItemList.add(new FeedItem("QDfCS5WM5Rf863P7CFS9o8C1BOW2", "Chang Guan",
                     "2022/12/06",
                     "noImage",
                     "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
                     "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
-                            "the fourth line", true, "34123"));
+                            "the fourth line", true, "34123", "Test", "test"));
         }
 
         return view;

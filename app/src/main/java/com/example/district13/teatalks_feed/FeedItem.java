@@ -9,10 +9,8 @@ public class FeedItem {
     private final String instruction;
     private boolean like;
     private String likeCount;
-
-
-
-
+    private final String postTitle;
+    private final String postTags;
 
     public void setLike(boolean like) {
         this.like = like;
@@ -22,7 +20,16 @@ public class FeedItem {
         return like;
     }
 
-    public FeedItem(String posterID, String poster, String date, String imageURL, String avatarURL, String instruction, boolean like, String likeCount) {
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public String getPostTags() {
+        return postTags;
+    }
+
+    public FeedItem(String posterID, String poster, String date, String imageURL, String avatarURL,
+                    String instruction, boolean like, String likeCount, String postTitle, String postTags) {
         this.posterID = posterID;
         this.poster = poster;
         this.date = date;
@@ -31,6 +38,8 @@ public class FeedItem {
         this.instruction = instruction;
         this.like = like;
         this.likeCount = likeCount;
+        this.postTitle = postTitle;
+        this.postTags = postTags;
     }
 
     public String getPoster() {

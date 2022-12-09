@@ -41,6 +41,8 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         holder.poster.setText(feedItem.getPoster());
         holder.date.setText(feedItem.getDate());
         holder.likeCount.setText(feedItem.getLikeCount());
+        holder.title.setText(feedItem.getPostTitle());
+        holder.tags.setText("Tags: " + feedItem.getPostTags());
         Glide.with(context)
                 .load(feedItem.getAvatarURL())
                 .into(holder.avatar);
