@@ -166,7 +166,7 @@ public class PostActivity extends AppCompatActivity {
 
                             String downloadUri = uriTask.getResult().toString();
                             if (uriTask.isSuccessful()) {
-                                HashMap<Object, String> hashMap = new HashMap<>();
+                                HashMap<String, Object> hashMap = new HashMap<>();
                                 hashMap.put("uid", uid);
                                 hashMap.put("uName", name);
                                 hashMap.put("uEmail", email);
@@ -201,6 +201,8 @@ public class PostActivity extends AppCompatActivity {
                                                 Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                             }
                                         });
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("appUsers");
+                                userRef.child(uid).child("posts").child(timeStamp).setValue("true");
                             }
                         }
                     })
@@ -212,7 +214,7 @@ public class PostActivity extends AppCompatActivity {
                         }
                     });
         } else {
-            HashMap<Object, String> hashMap = new HashMap<>();
+            HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("uid", uid);
             hashMap.put("uName", name);
             hashMap.put("uEmail", email);
@@ -239,13 +241,13 @@ public class PostActivity extends AppCompatActivity {
                             image_uri = null;
                         }
                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            pd.dismiss();
-                            Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            pd.dismiss();
+//                            Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
 
 
                     .addOnFailureListener(new OnFailureListener() {
@@ -255,6 +257,9 @@ public class PostActivity extends AppCompatActivity {
                             Toast.makeText(PostActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("appUsers");
+            userRef.child(uid).child("posts").child(timeStamp).setValue("true");
+
         }
     }
 

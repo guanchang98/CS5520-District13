@@ -94,27 +94,27 @@ public class LoginActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     progressDialog.dismiss();
 
-                    // get current user
-                    FirebaseUser user = auth.getCurrentUser();
-                    //get user email and uid
-                    String email = user.getEmail();
-                    String uid = user.getUid();
-                    //user is registered, store user info in firebase realtime database
-                    HashMap<Object, String> hashMap = new HashMap<>();
-                    //put info into hashmap
-                    hashMap.put("uid", uid);
-                    hashMap.put("email", email);
-                    hashMap.put("name", "");
-                    hashMap.put("avatar", "");
-                    hashMap.put("posts", "");
-                    hashMap.put("following", "");
-                    hashMap.put("followers", "");
-                    //get database instance
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    //path to store user data named "appUsers"
-                    DatabaseReference reference = database.getReference("appUsers");
-                    //put data within hashmap in database
-                    reference.child(uid).setValue(hashMap);
+//                    // get current user
+//                    FirebaseUser user = auth.getCurrentUser();
+//                    //get user email and uid
+//                    String email = user.getEmail();
+//                    String uid = user.getUid();
+//                    //user is registered, store user info in firebase realtime database
+//                    HashMap<Object, String> hashMap = new HashMap<>();
+//                    //put info into hashmap
+//                    hashMap.put("uid", uid);
+//                    hashMap.put("email", email);
+//                    hashMap.put("name", "");
+//                    hashMap.put("avatar", "");
+//                    hashMap.put("posts", "");
+//                    hashMap.put("following", "");
+//                    hashMap.put("followers", "");
+//                    //get database instance
+//                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                    //path to store user data named "appUsers"
+//                    DatabaseReference reference = database.getReference("appUsers");
+//                    //put data within hashmap in database
+//                    reference.child(uid).setValue(hashMap);
 
                     Toast.makeText(LoginActivity.this, "User login successfully!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, FeedActivity.class));
