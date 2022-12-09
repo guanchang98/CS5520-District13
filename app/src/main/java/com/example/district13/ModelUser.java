@@ -3,15 +3,16 @@ package com.example.district13;
 public class ModelUser {
 
     //WARNING: DO NOT change these name
-    String name, email, avatar;
+    String name, email, avatar, uid;
 
     public ModelUser() {
     }
 
-    public ModelUser(String name, String email, String avatar) {
+    public ModelUser(String name, String email, String avatar, String uid) {
         this.name = name;
         this.email = email;
         this.avatar = avatar;
+        this.uid = uid;
     }
 
     public String getName() {
@@ -28,6 +29,14 @@ public class ModelUser {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getAvatar() {
