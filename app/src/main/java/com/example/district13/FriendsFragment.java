@@ -37,7 +37,7 @@ public class FriendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
-        recyclerView = view.findViewById(R.id.userList);
+        recyclerView = view.findViewById(R.id.followUserList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

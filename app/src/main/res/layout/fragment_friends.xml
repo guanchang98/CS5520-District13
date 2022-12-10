@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FriendsFragment">
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/userList"
+        android:id="@+id/followUserList"
         android:layout_width="match_parent"
         android:layout_height="565dp"
         android:layout_marginTop="120dp"
@@ -16,12 +15,23 @@
         android:id="@+id/text_friend_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="135dp"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="100dp"
         android:layout_marginBottom="16dp"
         android:text="Tea Party"
         android:textColor="@color/mocha"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In Your Party"
+        android:textColor="@color/mocha"
+        android:textSize="25dp"
         android:textStyle="bold"
-        android:textSize="35sp" />
+        android:layout_marginTop="75sp"
+        android:layout_marginLeft="15dp"/>
 
 </FrameLayout>
