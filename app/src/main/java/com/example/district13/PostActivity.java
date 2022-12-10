@@ -61,6 +61,7 @@ public class PostActivity extends AppCompatActivity {
 
     String name, email, uid;
     Uri image_uri = null;
+    Uri avatar = null;
 
     ProgressDialog pd;
 
@@ -81,6 +82,7 @@ public class PostActivity extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     name = "" + ds.child("name").getValue();
                     email = "" + ds.child("email").getValue();
+                    avatar = Uri.parse("" + ds.child("avatar").getValue());
                 }
             }
 
@@ -176,6 +178,7 @@ public class PostActivity extends AppCompatActivity {
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
                                 hashMap.put("pLikes", String.valueOf(pLikes));
+                                hashMap.put("uAvatar", String.valueOf(avatar));
 
                                 // add likes field
 
@@ -225,6 +228,7 @@ public class PostActivity extends AppCompatActivity {
             hashMap.put("pImage", "noImage");
             hashMap.put("pTime", timeStamp);
             hashMap.put("pLikes", String.valueOf(pLikes));
+            hashMap.put("uAvatar", String.valueOf(avatar));
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
             ref.child(timeStamp).setValue(hashMap)
