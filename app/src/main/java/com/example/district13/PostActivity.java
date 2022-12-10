@@ -227,7 +227,8 @@ public class PostActivity extends AppCompatActivity {
             hashMap.put("pTags", tags);
             hashMap.put("pImage", "noImage");
             hashMap.put("pTime", timeStamp);
-            hashMap.put("pLikes", String.valueOf(pLikes));
+            hashMap.put("pLikes", "");
+            hashMap.put("pLikeCount", "0");
             hashMap.put("uAvatar", String.valueOf(avatar));
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");

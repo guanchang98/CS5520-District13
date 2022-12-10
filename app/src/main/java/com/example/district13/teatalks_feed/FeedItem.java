@@ -1,6 +1,7 @@
 package com.example.district13.teatalks_feed;
 
 public class FeedItem {
+    private final String postID;
     private final String posterID;
     private final String poster;
     private final String date;
@@ -33,8 +34,13 @@ public class FeedItem {
         return postTags;
     }
 
-    public FeedItem(String posterID, String poster, String date, String imageURL, String avatarURL,
+    public String getPostID() {
+        return postID;
+    }
+
+    public FeedItem(String postID, String posterID, String poster, String date, String imageURL, String avatarURL,
                     String instruction, boolean like, String likeCount, String postTitle, String postTags, boolean isFollowing) {
+        this.postID = postID;
         this.posterID = posterID;
         this.poster = poster;
         this.date = date;
