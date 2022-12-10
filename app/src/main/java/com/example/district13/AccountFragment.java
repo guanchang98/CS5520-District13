@@ -58,7 +58,7 @@ import java.util.HashMap;
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends Fragment {
-    private final String TAG = "AccountFragment";
+//    private final String TAG = "AccountFragment";
 
     //firebase
     FirebaseAuth firebaseAuth;
@@ -143,11 +143,11 @@ public class AccountFragment extends Fragment {
                     String name = "" + dataSnapshot.child("name").getValue();
                     String email = "" + dataSnapshot.child("email").getValue();
                     String avatar = "" + dataSnapshot.child("avatar").getValue();
-                    String posts = "" + dataSnapshot.child("posts").getValue();
-                    String following = "" + dataSnapshot.child("following").getValue();
-                    String followers = "" + dataSnapshot.child("followers").getValue();
+//                    String posts = "" + dataSnapshot.child("posts").getValue();
+//                    String following = "" + dataSnapshot.child("following").getValue();
+//                    String followers = "" + dataSnapshot.child("followers").getValue();
 
-                    //Log.w(TAG, name);
+//                    Log.w(TAG, name);
 
                     //set data
                     userEmailTv.setText(email);
@@ -235,17 +235,17 @@ public class AccountFragment extends Fragment {
         builder.create().show();
     }
 
-    //method updating personal info in fragement
+    //method updating personal info in fragment
     private void showPersonalInfoUpdateDialog(String key) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Update" + key);
+        builder.setTitle("Update " + key);
         //set layout
         LinearLayout linearLayout = new LinearLayout(getActivity());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setPadding(10, 10, 10, 10);
         //edit text
         EditText editText = new EditText(getActivity());
-        editText.setHint("Enter" + key);
+        editText.setHint("Enter " + key);
         linearLayout.addView(editText);
 
         builder.setView(linearLayout);
@@ -276,7 +276,7 @@ public class AccountFragment extends Fragment {
                                 }
                             });
                 } else {
-                    Toast.makeText(getActivity(), "" + "Please Enter" + key, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "" + "Please Enter " + key, Toast.LENGTH_SHORT).show();
                 }
             }
         });
