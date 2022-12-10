@@ -3,6 +3,8 @@ package com.example.district13;
 import android.content.Context;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.district13.teatalks_feed.FeedItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -34,6 +37,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
 
     @Override
     public void onBindViewHolder(@Nullable @androidx.annotation.NonNull MyHolder myHolder, int i) {
+        final ModelUser userItem = userList.get(i);
         String avatar = userList.get(i).getAvatar();
         String name = userList.get(i).getName();
         String email = userList.get(i).getEmail();
@@ -48,7 +52,10 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
         myHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, ""+email, Toast.LENGTH_SHORT).show();
+                final Intent intent;
+                intent =  new Intent(context, OthersAccountActivity.class);
+                intent.putExtra("PosterID", userItem.getUid());
+                context.startActivity(intent);
             }
         });
     }
