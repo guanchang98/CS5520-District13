@@ -83,13 +83,13 @@ public class OthersAccountActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.child("posts").getChildren()) {
                     postCount++;
                 }
-                posts_txt.setText(postCount + " Posts");
+                posts_txt.setText(postCount + "\nPosts");
 
                 followingCount = 0;
                 for (DataSnapshot snapshot : dataSnapshot.child("following").getChildren()) {
                     followingCount++;
                 }
-                followings_txt.setText(followingCount + " Following");
+                followings_txt.setText(followingCount + "\nFollowing");
 
                 followersCount = 0;
                 for (DataSnapshot snapshot : dataSnapshot.child("followers").getChildren()) {
@@ -98,7 +98,7 @@ public class OthersAccountActivity extends AppCompatActivity {
                     }
                     followersCount++;
                 }
-                followers_txt.setText(followersCount + " Followers");
+                followers_txt.setText(followersCount + "\nFollowers");
                 try {
                     //load avatar if set
                     Picasso.get().load(avatar).into(avatar_image);
