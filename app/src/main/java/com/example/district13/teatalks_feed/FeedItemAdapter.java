@@ -11,11 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.district13.FeedActivity;
 import com.example.district13.OthersAccountActivity;
 import com.example.district13.R;
-import com.example.district13.RegisterActivity;
-import com.example.district13.sticker_user.StickerUser;
 
 import java.util.List;
 
@@ -38,9 +35,15 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull FeedItemViewHolder holder, int position) {
         final FeedItem feedItem = feedItems.get(position);
-        holder.poster.setText(feedItem.getPoster());
+        if (feedItem.isFollowing()) {
+            holder.poster.setText(feedItem.getPoster() + "(Following)");
+        } else {
+            holder.poster.setText(feedItem.getPoster() + "(Recommended)");
+        }
         holder.date.setText(feedItem.getDate());
         holder.likeCount.setText(feedItem.getLikeCount());
+        holder.title.setText(feedItem.getPostTitle());
+        if (feedItem.getPostTags() != null) holder.tags.setText("Tags: " + feedItem.getPostTags());
         Glide.with(context)
                 .load(feedItem.getAvatarURL())
                 .into(holder.avatar);
@@ -71,6 +74,7 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
             @Override
             public void onClick(View view) {
                 feedItem.setLike(!feedItem.isLike());
+
                 if(feedItem.isLike()) {
                     Glide.with(context)
                             .load(R.drawable.ic_like)
