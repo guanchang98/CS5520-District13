@@ -1,9 +1,7 @@
 package com.example.district13;
 
-import android.graphics.Path;
 import android.os.Bundle;
 
-import androidx.annotation.ContentView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.district13.sticker_user.StickerUserAdapter;
 import com.example.district13.teatalks_feed.FeedItem;
 import com.example.district13.teatalks_feed.FeedItemAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -160,8 +157,8 @@ public class FeedFragment extends Fragment {
                 Set<String> existedPosts = new HashSet<>(followingPostIds);
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Log.v("CollectRecentPosts", "Current post is: " + dataSnapshot.getKey().toString());
-                    if (!existedPosts.contains((String) dataSnapshot.getKey())) recommendPostIds.add((String) dataSnapshot.getKey());
+                    Log.v("CollectRecentPosts", "Current post is: " + dataSnapshot.getKey());
+                    if (!existedPosts.contains(dataSnapshot.getKey())) recommendPostIds.add(dataSnapshot.getKey());
                 }
 
                 DatabaseReference postRef = database.getReference("Posts");
@@ -170,37 +167,37 @@ public class FeedFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (String id : followingPostIds) {
-                            Log.v("Following post id:", "current post id: " + id);
+//                            Log.v("Following post id:", "current post id: " + id);
                             DataSnapshot dataSnapshot = snapshot.child(id);
                             SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
                             feedItemList.add(new FeedItem(
-                                    (String)dataSnapshot.child("uid").getValue(),
-                                    (String)dataSnapshot.child("name").getValue(),
+                                    id, (String)dataSnapshot.child("uid").getValue(),
+                                    (String)dataSnapshot.child("uName").getValue(),
                                     sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
                                     (String)dataSnapshot.child("pImage").getValue(),
-                                    (String)dataSnapshot.child("pAvatar").getValue(),
+                                    (String)dataSnapshot.child("uAvatar").getValue(),
                                     (String)dataSnapshot.child("pContent").getValue(),
-                                    dataSnapshot.child("pLikes").child("uid").exists(),
+                                    dataSnapshot.child("pLikes").child(user.getUid()).exists(),
                                     (String)dataSnapshot.child("pLikeCount").getValue(),
                                     (String)dataSnapshot.child("pTitle").getValue(),
                                     (String)dataSnapshot.child("pTags").getValue(),
                                     true));
                         }
 
-                        Log.v("Feed Item List size: ", "Feed Item list size: " + feedItemList.size());
+//                        Log.v("Feed Item List size: ", "Feed Item list size: " + feedItemList.size());
 
                         for (String id : recommendPostIds) {
-                            Log.v("Recommend post id: ", "current post id: " + id);
+//                            Log.v("Recommend post id: ", "current post id: " + id);
                             DataSnapshot dataSnapshot = snapshot.child(id);
                             SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
                             feedItemList.add(new FeedItem(
-                                    (String)dataSnapshot.child("uid").getValue(),
-                                    (String)dataSnapshot.child("name").getValue(),
+                                    id, (String)dataSnapshot.child("uid").getValue(),
+                                    (String)dataSnapshot.child("uName").getValue(),
                                     sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
                                     (String)dataSnapshot.child("pImage").getValue(),
-                                    (String)dataSnapshot.child("pAvatar").getValue(),
+                                    (String)dataSnapshot.child("uAvatar").getValue(),
                                     (String)dataSnapshot.child("pContent").getValue(),
-                                    dataSnapshot.child("pLikes").child("uid").exists(),
+                                    dataSnapshot.child("pLikes").child(user.getUid()).exists(),
                                     (String)dataSnapshot.child("pLikeCount").getValue(),
                                     (String)dataSnapshot.child("pTitle").getValue(),
                                     (String)dataSnapshot.child("pTags").getValue(),
