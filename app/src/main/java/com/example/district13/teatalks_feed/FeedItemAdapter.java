@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,12 +17,14 @@ import com.example.district13.OthersAccountActivity;
 import com.example.district13.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -55,8 +58,20 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         database = FirebaseDatabase.getInstance();
-        postRef = database.getReference("Posts");
-        holder.likeCount.setText(feedItem.getLikeCount());
+        postRef = database.getReference("Posts").child(feedItem.getPostID()).child("pLikes");
+        postRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.v("Post likes count", "post likes count " + snapshot.getChildrenCount());
+                holder.likeCount.setText(String.valueOf(snapshot.getChildrenCount()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         if (feedItem.isFollowing()) {
             if (feedItem.getPoster() == null) {
@@ -111,58 +126,28 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
             @Override
             public void onClick(View view) {
                 feedItem.setLike(!feedItem.isLike());
-
                 if(feedItem.isLike()) {
                     Glide.with(context)
                             .load(R.drawable.ic_like)
                             .into(holder.likeIcon);
-                    postRef.child(feedItem.getPostID()).runTransaction(new Transaction.Handler() {
-                        @Override
-                        public Transaction.Result doTransaction(MutableData mutableData) {
-                            Log.v("Transaction", "Mutable data" + mutableData);
-                            postRef.child(feedItem.getPostID()).child("pLikes").child(user.getUid()).setValue("true");
-                            String likeCount = (String) mutableData.child(feedItem.getPostID()).child("pLikeCount").getValue();
-                            int updateNum = likeCount == null ? 1 : Integer.parseInt(likeCount) + 1;
-                            postRef.child(feedItem.getPostID()).child("pLikeCount").setValue(String.valueOf(updateNum));
-                            Log.v("like count","Like count: " + likeCount);
-//                            holder.likeCount.setText(String.valueOf(updateNum));
-                            // Set value and report transaction success
-                            return Transaction.success(mutableData);
-                        }
-
-                        @Override
-                        public void onComplete(DatabaseError databaseError, boolean committed,
-                                               DataSnapshot currentData) {
-                            // Transaction completed
-//                            Log.d(TAG, "postTransaction:onComplete:" + databaseError);
-                        }
-                    });
+                    postRef.child(user.getUid()).setValue("true");
                 } else {
                     Glide.with(context)
                             .load(R.drawable.ic_unlike)
                             .into(holder.likeIcon);
-                    postRef.child(feedItem.getPostID()).runTransaction(new Transaction.Handler() {
-                        @Override
-                        public Transaction.Result doTransaction(MutableData mutableData) {
-                            Log.v("Transaction", "Mutable data" + mutableData);
-                            postRef.child(feedItem.getPostID()).child("pLikes").child(user.getUid()).removeValue();
-                            String likeCount = (String) mutableData.child(feedItem.getPostID()).child("pLikeCount").getValue();
-                            int updateNum = likeCount == null ? 0 : Integer.parseInt(likeCount) - 1;
-                            postRef.child(feedItem.getPostID()).child("pLikeCount").setValue(String.valueOf(updateNum));
-//                            holder.likeCount.setText(String.valueOf(updateNum));
-                            Log.v("like count","Like count: " + likeCount);
-                            // Set value and report transaction success
-                            return Transaction.success(mutableData);
-                        }
-
-                        @Override
-                        public void onComplete(DatabaseError databaseError, boolean committed,
-                                               DataSnapshot currentData) {
-                            // Transaction completed
-//                            Log.d(TAG, "postTransaction:onComplete:" + databaseError);
-                        }
-                    });
+                    postRef.child(user.getUid()).removeValue();
                 }
+                postRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        holder.likeCount.setText(String.valueOf(snapshot.getChildrenCount()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 

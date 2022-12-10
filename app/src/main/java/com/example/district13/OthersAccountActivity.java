@@ -79,24 +79,15 @@ public class OthersAccountActivity extends AppCompatActivity {
                 //set data
                 email_txt.setText(email);
                 username_txt.setText(name);
-                postCount = 0;
-                for (DataSnapshot snapshot : dataSnapshot.child("posts").getChildren()) {
-                    postCount++;
-                }
+                postCount = (int) dataSnapshot.child("posts").getChildrenCount();
                 posts_txt.setText(postCount + " Posts");
 
-                followingCount = 0;
-                for (DataSnapshot snapshot : dataSnapshot.child("following").getChildren()) {
-                    followingCount++;
-                }
+                followingCount = (int) dataSnapshot.child("following").getChildrenCount();
                 followings_txt.setText(followingCount + " Following");
 
-                followersCount = 0;
-                for (DataSnapshot snapshot : dataSnapshot.child("followers").getChildren()) {
-                    if (snapshot.getKey().equals(userId)) {
-                        followSwitch.setChecked(true);
-                    }
-                    followersCount++;
+                followersCount = (int) dataSnapshot.child("followers").getChildrenCount();
+                if (dataSnapshot.child("followers").child(userId).exists()) {
+                    followSwitch.setChecked(true);
                 }
                 followers_txt.setText(followersCount + " Followers");
                 try {
