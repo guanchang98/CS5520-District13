@@ -143,7 +143,8 @@ public class FeedFragment extends Fragment {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Log.v("CollectRecentPosts", "Current post is: " + dataSnapshot.getKey());
-                    if (!existedPosts.contains(dataSnapshot.getKey())) recommendPostIds.add(dataSnapshot.getKey());
+                    if (!existedPosts.contains(dataSnapshot.getKey()) && !dataSnapshot.child("uid").getValue().equals(user.getUid()))
+                        recommendPostIds.add(dataSnapshot.getKey());
                 }
 
 
