@@ -28,6 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText email;
     private EditText password;
+    private EditText name;
+    private String textName;
     private Button register;
 
     private FirebaseAuth auth;
@@ -42,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         email = findViewById(R.id.editText_register_email);
         password = findViewById(R.id.editText_register_password);
+        name = findViewById(R.id.editText_register_name);
         register = findViewById(R.id.button_register);
 
         auth = FirebaseAuth.getInstance();
@@ -55,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textEmail = email.getText().toString();
                 String textPassword = password.getText().toString();
+                textName = name.getText().toString();
 
                 if (TextUtils.isEmpty(textEmail) || TextUtils.isEmpty(textPassword)) {
                     Toast.makeText(RegisterActivity.this, "Empty credentials!", Toast.LENGTH_SHORT).show();
@@ -63,6 +67,9 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(textEmail).matches()) {
                     //validate if input email address is in correct form
                     Toast.makeText(RegisterActivity.this, "Invalid email!", Toast.LENGTH_SHORT).show();
+                } else if (name.length() < 1) {
+                    //check if name input
+                    Toast.makeText(RegisterActivity.this, "Please enter a username!", Toast.LENGTH_SHORT).show();
                 } else {
                     registerUser(textEmail, textPassword);
                 }
@@ -91,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //put info into hashmap
                     hashMap.put("uid", uid);
                     hashMap.put("email", email);
-                    hashMap.put("name", "");
+                    hashMap.put("name", textName);
                     hashMap.put("avatar", "");
                     hashMap.put("posts", "");
                     hashMap.put("following", "");
