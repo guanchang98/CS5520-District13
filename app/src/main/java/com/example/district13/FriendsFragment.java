@@ -56,7 +56,7 @@ public class FriendsFragment extends Fragment {
                 userList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()) {
                     ModelUser modelUser = ds.getValue(ModelUser.class);
-                    if(!modelUser.getUid().equals(firebaseUser.getUid())) {
+                    if(!modelUser.getUid().equals(firebaseUser.getUid())){
                         userList.add(modelUser);
                     }
                     adapterUsers = new AdapterUsers(getActivity(), userList);
