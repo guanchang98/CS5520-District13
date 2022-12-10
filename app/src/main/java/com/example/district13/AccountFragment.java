@@ -98,6 +98,9 @@ public class AccountFragment extends Fragment {
     //key of avatar
     String accountUserAvatar;
 
+    //int of user info display
+    private int postCount, followingCount, followersCount;
+
     public AccountFragment() {
         //Required empty public constructor
     }
@@ -148,10 +151,26 @@ public class AccountFragment extends Fragment {
 
                     //set data
                     userEmailTv.setText(email);
-                    userNameTv.setText("Welcome\n" + name);
-                    userPostsTv.setText(posts + "\nPosts");
-                    userFollowingTv.setText(following + "\nFollowing");
-                    userFollowersTv.setText(followers + "\nFollowers");
+                    userNameTv.setText(name);
+
+                    //display numbers of posts, followings and followers
+                    postCount = 0;
+                    followingCount = 0;
+                    followersCount = 0;
+                    for (DataSnapshot dataSnapshot1: snapshot.child("posts").getChildren()) {
+                       postCount++;
+                    }
+                    for (DataSnapshot dataSnapshot1: snapshot.child("following").getChildren()) {
+                        followingCount++;
+                    }
+                    for (DataSnapshot dataSnapshot1: snapshot.child("followers").getChildren()) {
+                        followersCount++;
+                    }
+                    userPostsTv.setText(postCount + "\nPosts");
+                    userFollowingTv.setText(followingCount + "\nFollowing");
+                    userFollowersTv.setText(followersCount + "\nFollowers");
+
+                    //load user avatar
                     try {
                         //load avatar if set
                         Picasso.get().load(avatar).into(avatarIv);
