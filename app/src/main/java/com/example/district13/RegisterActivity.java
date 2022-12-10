@@ -69,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Invalid email!", Toast.LENGTH_SHORT).show();
                 } else if (name.length() < 1) {
                     //check if name input
-                    Toast.makeText(RegisterActivity.this, "Please enter name!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please enter a username!", Toast.LENGTH_SHORT).show();
                 } else {
                     registerUser(textEmail, textPassword);
                 }
