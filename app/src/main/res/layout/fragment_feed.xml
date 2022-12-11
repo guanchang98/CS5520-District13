@@ -31,7 +31,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="Your Feed"
-        android:textSize="30sp" />
+        android:textColor="@color/mocha"
+        android:textStyle="bold"
+        android:textSize="35sp" />
 
     <ImageView
         android:id="@+id/imageView"
