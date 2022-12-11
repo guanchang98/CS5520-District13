@@ -60,12 +60,17 @@ public class FriendsFragment extends Fragment {
                 followUserList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()) {
                     ModelUser modelUser = ds.getValue(ModelUser.class);
-                    String my_uid = modelUser.getUid();
-                    String other_uid = firebaseUser.getUid();
-                    if((!my_uid.equals(firebaseUser.getUid())) && snapshot.child("followers").child(other_uid).exists()){
+                    System.out.println(modelUser);
+
+                    String other_uid = modelUser.getUid();
+                    String my_uid = firebaseUser.getUid();
+                    System.out.println("MY UID: " + my_uid);
+                    System.out.println("CURRENT UID: " + other_uid);
+                    System.out.println(ds.child("followers"));
+                    if((!my_uid.equals(other_uid)) && ds.child("followers").child(my_uid).exists()){
                         followUserList.add(modelUser);
                     }
-                    else if((!my_uid.equals(firebaseUser.getUid())) && !snapshot.child("followers").child(other_uid).exists()) {
+                    else if((!my_uid.equals(other_uid)) && !ds.child("followers").child(my_uid).exists()) {
                         newUserList.add(modelUser);
                     }
                     adapterUsers = new AdapterUsers(getActivity(), followUserList);

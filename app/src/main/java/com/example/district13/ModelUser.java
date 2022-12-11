@@ -46,4 +46,14 @@ public class ModelUser {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    @Override
+    public String toString() {
+        return "ModelUser{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", uid='" + uid + '\'' +
+                '}';
+    }
 }
