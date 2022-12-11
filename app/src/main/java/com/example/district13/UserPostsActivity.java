@@ -94,6 +94,11 @@ public class UserPostsActivity extends AppCompatActivity {
                             true));
                 }
 
+                userPostsRecyclerView = findViewById(R.id.recyclerView_user_posts);
+                userPostsRecyclerView.setHasFixedSize(true);
+                userPostsRecyclerView.setLayoutManager(new LinearLayoutManager(UserPostsActivity.this));
+                userPostsRecyclerView.setAdapter(new UserPostsItemAdapter(userPostsList, UserPostsActivity.this));
+
 
             }
 
@@ -103,10 +108,7 @@ public class UserPostsActivity extends AppCompatActivity {
             }
         });
 
-        userPostsRecyclerView = findViewById(R.id.recyclerView_user_posts);
-        userPostsRecyclerView.setHasFixedSize(true);
-        userPostsRecyclerView.setLayoutManager(new LinearLayoutManager(UserPostsActivity.this));
-        userPostsRecyclerView.setAdapter(new UserPostsItemAdapter(userPostsList, UserPostsActivity.this));
+
     }
 
 //    private void CollectUserPosts(List<String> userPostsIds) {
