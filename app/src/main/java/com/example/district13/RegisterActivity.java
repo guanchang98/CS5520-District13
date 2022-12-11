@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         email = findViewById(R.id.editText_register_email);
         password = findViewById(R.id.editText_register_password);
+        password.setTransformationMethod(new AsteriskPasswordTransformationMethod());
         name = findViewById(R.id.editText_register_name);
         register = findViewById(R.id.button_register);
 
@@ -76,7 +78,28 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+    public class AsteriskPasswordTransformationMethod extends PasswordTransformationMethod {
+        @Override
+        public CharSequence getTransformation(CharSequence source, View view) {
+            return new AsteriskPasswordTransformationMethod.PasswordCharSequence(source);
+        }
 
+        private class PasswordCharSequence implements CharSequence {
+            private CharSequence mSource;
+            public PasswordCharSequence(CharSequence source) {
+                mSource = source; // Store char sequence
+            }
+            public char charAt(int index) {
+                return '*'; // This is the important part
+            }
+            public int length() {
+                return mSource.length(); // Return default
+            }
+            public CharSequence subSequence(int start, int end) {
+                return mSource.subSequence(start, end); // Return default
+            }
+        }
+    };
     private void registerUser(String email, String password) {
         //input is valid, show progress and start registering
         progressDialog.show();
