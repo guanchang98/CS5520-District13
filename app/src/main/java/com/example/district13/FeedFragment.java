@@ -107,47 +107,32 @@ public class FeedFragment extends Fragment {
         feedItemList = new ArrayList<>();
         recommendPostIds = new ArrayList<>();
 
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                feedItemList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.child("following").getChildren()) {
                     followingIDs.add(dataSnapshot.getKey());
                 }
-                CollectFollowingAndRecentPosts(followingIDs);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
-//        for (int i = 0; i < 10; i++) {
-//            feedItemList.add(new FeedItem("qm7GQmAXTvZpNK6ia33vmA9PQWw2", "Chang Guan",
-//                    "2022/12/06",
-//                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
-//                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
-//                    "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
-//                            "the fourth line", true, "23", "New lemonade", "Original", false));
-//
-//            feedItemList.add(new FeedItem("QDfCS5WM5Rf863P7CFS9o8C1BOW2", "Chang Guan",
-//                    "2022/12/06",
-//                    "noImage",
-//                    "https://i.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU",
-//                    "Hello, this is the instruction \nThis is the second line\n This is the third line \nThis is " +
-//                            "the fourth line", true, "34123", "Test", "test", true));
-//        }
+        CollectFollowingAndRecentPosts(followingIDs);
 
         return view;
     }
 
     private void CollectFollowingAndRecentPosts(Set<String> followingIDs) {
         Query query = database.getReference("Posts").orderByKey().limitToLast(100);
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                feedItemList.clear();
+                followingPostIds.clear();
+                recommendPostIds.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     if (followingIDs.contains((String) dataSnapshot.child("uid").getValue())) {
                         Log.v("CollectFollowingPosts", "Following post is: " + dataSnapshot.getKey().toString());
@@ -158,65 +143,53 @@ public class FeedFragment extends Fragment {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Log.v("CollectRecentPosts", "Current post is: " + dataSnapshot.getKey());
-                    if (!existedPosts.contains(dataSnapshot.getKey())) recommendPostIds.add(dataSnapshot.getKey());
+                    if (!existedPosts.contains(dataSnapshot.getKey()) && !dataSnapshot.child("uid").getValue().equals(user.getUid()))
+                        recommendPostIds.add(dataSnapshot.getKey());
                 }
 
-                DatabaseReference postRef = database.getReference("Posts");
 
-                postRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (String id : followingPostIds) {
+                for (String id : followingPostIds) {
 //                            Log.v("Following post id:", "current post id: " + id);
-                            DataSnapshot dataSnapshot = snapshot.child(id);
-                            SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
-                            feedItemList.add(new FeedItem(
-                                    id, (String)dataSnapshot.child("uid").getValue(),
-                                    (String)dataSnapshot.child("uName").getValue(),
-                                    sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
-                                    (String)dataSnapshot.child("pImage").getValue(),
-                                    (String)dataSnapshot.child("uAvatar").getValue(),
-                                    (String)dataSnapshot.child("pContent").getValue(),
-                                    dataSnapshot.child("pLikes").child(user.getUid()).exists(),
-                                    (String)dataSnapshot.child("pLikeCount").getValue(),
-                                    (String)dataSnapshot.child("pTitle").getValue(),
-                                    (String)dataSnapshot.child("pTags").getValue(),
-                                    true));
-                        }
+                    DataSnapshot dataSnapshot = snapshot.child(id);
+                    SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
+                    feedItemList.add(new FeedItem(
+                            id, (String)dataSnapshot.child("uid").getValue(),
+                            (String)dataSnapshot.child("uName").getValue(),
+                            sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
+                            (String)dataSnapshot.child("pImage").getValue(),
+                            (String)dataSnapshot.child("uAvatar").getValue(),
+                            (String)dataSnapshot.child("pContent").getValue(),
+                            dataSnapshot.child("pLikes").child(user.getUid()).exists(),
+                            (String)dataSnapshot.child("pLikeCount").getValue(),
+                            (String)dataSnapshot.child("pTitle").getValue(),
+                            (String)dataSnapshot.child("pTags").getValue(),
+                            true));
+                }
 
 //                        Log.v("Feed Item List size: ", "Feed Item list size: " + feedItemList.size());
 
-                        for (String id : recommendPostIds) {
+                for (String id : recommendPostIds) {
 //                            Log.v("Recommend post id: ", "current post id: " + id);
-                            DataSnapshot dataSnapshot = snapshot.child(id);
-                            SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
-                            feedItemList.add(new FeedItem(
-                                    id, (String)dataSnapshot.child("uid").getValue(),
-                                    (String)dataSnapshot.child("uName").getValue(),
-                                    sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
-                                    (String)dataSnapshot.child("pImage").getValue(),
-                                    (String)dataSnapshot.child("uAvatar").getValue(),
-                                    (String)dataSnapshot.child("pContent").getValue(),
-                                    dataSnapshot.child("pLikes").child(user.getUid()).exists(),
-                                    (String)dataSnapshot.child("pLikeCount").getValue(),
-                                    (String)dataSnapshot.child("pTitle").getValue(),
-                                    (String)dataSnapshot.child("pTags").getValue(),
-                                    false));
-                        }
+                    DataSnapshot dataSnapshot = snapshot.child(id);
+                    SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
+                    feedItemList.add(new FeedItem(
+                            id, (String)dataSnapshot.child("uid").getValue(),
+                            (String)dataSnapshot.child("uName").getValue(),
+                            sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
+                            (String)dataSnapshot.child("pImage").getValue(),
+                            (String)dataSnapshot.child("uAvatar").getValue(),
+                            (String)dataSnapshot.child("pContent").getValue(),
+                            dataSnapshot.child("pLikes").child(user.getUid()).exists(),
+                            (String)dataSnapshot.child("pLikeCount").getValue(),
+                            (String)dataSnapshot.child("pTitle").getValue(),
+                            (String)dataSnapshot.child("pTags").getValue(),
+                            false));
+                }
 
-                        feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
-                        feedItemRecyclerView.setHasFixedSize(true);
-                        feedItemRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-                        feedItemRecyclerView.setAdapter(new FeedItemAdapter(feedItemList, getContext()));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
+                feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
+                feedItemRecyclerView.setHasFixedSize(true);
+                feedItemRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                feedItemRecyclerView.setAdapter(new FeedItemAdapter(feedItemList, getContext()));
 
             }
 
