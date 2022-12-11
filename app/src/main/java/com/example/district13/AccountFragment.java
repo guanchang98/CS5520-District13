@@ -160,18 +160,9 @@ public class AccountFragment extends Fragment {
                     userNameTv.setText(name);
 
                     //display numbers of posts, followings and followers
-                    postCount = 0;
-                    followingCount = 0;
-                    followersCount = 0;
-                    for (DataSnapshot dataSnapshot1: snapshot.child("posts").getChildren()) {
-                       postCount++;
-                    }
-                    for (DataSnapshot dataSnapshot1: snapshot.child("following").getChildren()) {
-                        followingCount++;
-                    }
-                    for (DataSnapshot dataSnapshot1: snapshot.child("followers").getChildren()) {
-                        followersCount++;
-                    }
+                    postCount = (int) dataSnapshot.child("posts").getChildrenCount();
+                    followingCount = (int) dataSnapshot.child("following").getChildrenCount();
+                    followersCount = (int) dataSnapshot.child("followers").getChildrenCount();
                     userPostsTv.setText(postCount + "\nPosts");
                     userFollowingTv.setText(followingCount + "\nFollowing");
                     userFollowersTv.setText(followersCount + "\nFollowers");
