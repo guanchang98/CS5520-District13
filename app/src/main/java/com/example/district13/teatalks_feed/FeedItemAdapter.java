@@ -74,7 +74,7 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
 
         if (feedItem.isFollowing()) {
-            if (feedItem.getPoster() == null) {
+            if (feedItem.getPoster() == null || feedItem.getPoster().equals("")) {
                 holder.poster.setText("Anonymous\n(Following)");
             } else {
                 holder.poster.setText(feedItem.getPoster() + "\n(Following)");
@@ -90,7 +90,7 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
         holder.title.setText(feedItem.getPostTitle());
         if (feedItem.getPostTags() != null) holder.tags.setText("Tags: " + feedItem.getPostTags());
-        if (feedItem.getAvatarURL() != null) {
+        if (feedItem.getAvatarURL() != null && !feedItem.getAvatarURL().equals("")) {
             Glide.with(context)
                     .load(feedItem.getAvatarURL())
                     .into(holder.avatar);
