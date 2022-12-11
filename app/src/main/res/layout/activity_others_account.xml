@@ -23,12 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
         android:layout_marginBottom="32dp"
-        android:text="History Posts"
+        android:text="History Of Posts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_followings" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_followings"
+        app:layout_constraintVertical_bias="0.203" />
 
     <TextView
         android:id="@+id/textView_username"
@@ -36,6 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Username"
+        android:textColor="@color/mocha"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_other_user_avatar" />
@@ -45,6 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:textColor="@color/mocha"
+        android:textSize="15dp"
         android:text="Email"
         app:layout_constraintEnd_toEndOf="@+id/textView_username"
         app:layout_constraintStart_toStartOf="@+id/textView_username"
@@ -67,6 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textColor="@color/mocha"
+        android:textSize="20dp"
         android:text="132 Followings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +87,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="24dp"
         android:text="0 Posts"
+        android:textColor="@color/mocha"
+        android:textSize="20dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView_followings"
         app:layout_constraintEnd_toStartOf="@+id/textView_followings"
         app:layout_constraintStart_toStartOf="parent" />
@@ -90,6 +100,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="13 Followers"
+        android:textColor="@color/mocha"
+        android:textSize="20dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView_followings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_followings" />

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">District13</string>
+    <string name="app_name">Tea Talks</string>
     <string name="loading">Loading...</string>
     <string name="fetch_punks">FETCH PUNKS!</string>
     <string name="beers_greater_than_this_abv">Beers greater than this ABV</string>

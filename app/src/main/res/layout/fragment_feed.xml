@@ -9,9 +9,8 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/feed_searchView"
-        android:layout_width="330dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="65dp"
         app:queryHint="Search" />
 
@@ -27,13 +26,13 @@
         android:id="@+id/text_feed_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="135dp"
+        android:layout_marginLeft="125dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="Your Feed"
         android:textColor="@color/mocha"
-        android:textStyle="bold"
-        android:textSize="35sp" />
+        android:textSize="35sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView"

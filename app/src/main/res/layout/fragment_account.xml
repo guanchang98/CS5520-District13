@@ -42,24 +42,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome"
+            android:textColor="@color/mocha"
+            android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_selfie"
-            app:layout_constraintVertical_bias="0.038" />
+            app:layout_constraintVertical_bias="0.086" />
 
         <TextView
             android:id="@+id/user_posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Posts"
+            android:textColor="@color/mocha"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/user_following"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_name"
-            app:layout_constraintVertical_bias="0.14" />
+            app:layout_constraintVertical_bias="0.231" />
 
         <TextView
             android:id="@+id/user_following"
@@ -67,29 +71,34 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="Following"
+            android:textColor="@color/mocha"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/user_followers"
             app:layout_constraintStart_toEndOf="@+id/user_posts"
             app:layout_constraintTop_toBottomOf="@+id/user_name"
-            app:layout_constraintVertical_bias="0.14" />
+            app:layout_constraintVertical_bias="0.23" />
 
         <TextView
             android:id="@+id/user_followers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Followers"
+            android:textColor="@color/mocha"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.301"
             app:layout_constraintStart_toEndOf="@+id/user_following"
             app:layout_constraintTop_toBottomOf="@+id/user_name"
-            app:layout_constraintVertical_bias="0.14" />
+            app:layout_constraintVertical_bias="0.231" />
 
         <Button
             android:id="@+id/go_to_posts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Posts"
+            android:width="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -102,12 +111,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"
+            android:textColor="@color/mocha"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_name"
-            app:layout_constraintVertical_bias="0.03" />
+            app:layout_constraintVertical_bias="0.049" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
