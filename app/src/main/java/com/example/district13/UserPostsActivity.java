@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +75,8 @@ public class UserPostsActivity extends AppCompatActivity {
                 userPostsList.clear();
 
                 //add posts found in database to the recyclerview
+                //reverse lists so the newest is at top
+                Collections.reverse(userPostsIds);
                 for (String id : userPostsIds) {
                     Log.v("User Posts Id", "current post id: " + id);
                     DataSnapshot dataSnapshot = snapshot.child(id);
