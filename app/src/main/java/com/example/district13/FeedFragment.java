@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -147,7 +149,7 @@ public class FeedFragment extends Fragment {
                         recommendPostIds.add(dataSnapshot.getKey());
                 }
 
-
+                Collections.reverse(followingPostIds);
                 for (String id : followingPostIds) {
 //                            Log.v("Following post id:", "current post id: " + id);
                     DataSnapshot dataSnapshot = snapshot.child(id);
@@ -167,7 +169,7 @@ public class FeedFragment extends Fragment {
                 }
 
 //                        Log.v("Feed Item List size: ", "Feed Item list size: " + feedItemList.size());
-
+                Collections.reverse(recommendPostIds);
                 for (String id : recommendPostIds) {
 //                            Log.v("Recommend post id: ", "current post id: " + id);
                     DataSnapshot dataSnapshot = snapshot.child(id);
@@ -188,7 +190,11 @@ public class FeedFragment extends Fragment {
 
                 feedItemRecyclerView = view.findViewById(R.id.recyclerView_feed);
                 feedItemRecyclerView.setHasFixedSize(true);
-                feedItemRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+                feedItemRecyclerView.setLayoutManager(layoutManager);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(feedItemRecyclerView.getContext(),
+                        ((LinearLayoutManager) layoutManager).getOrientation());
+                feedItemRecyclerView.addItemDecoration(dividerItemDecoration);
                 feedItemRecyclerView.setAdapter(new FeedItemAdapter(feedItemList, getContext()));
 
             }
