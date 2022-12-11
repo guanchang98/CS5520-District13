@@ -126,6 +126,7 @@ public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
             @Override
             public void onClick(View view) {
                 feedItem.setLike(!feedItem.isLike());
+                postRef = database.getReference("Posts").child(feedItem.getPostID()).child("pLikes");
                 if(feedItem.isLike()) {
                     Glide.with(context)
                             .load(R.drawable.ic_like)
