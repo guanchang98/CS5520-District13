@@ -71,9 +71,6 @@ public class UserPostsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userPostsList.clear();
-//                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-//
-//                }
 
                 //add posts found in database to the recyclerview
                 for (String id : userPostsIds) {
@@ -93,13 +90,10 @@ public class UserPostsActivity extends AppCompatActivity {
                             (String)dataSnapshot.child("pTags").getValue(),
                             true));
                 }
-
                 userPostsRecyclerView = findViewById(R.id.recyclerView_user_posts);
                 userPostsRecyclerView.setHasFixedSize(true);
                 userPostsRecyclerView.setLayoutManager(new LinearLayoutManager(UserPostsActivity.this));
                 userPostsRecyclerView.setAdapter(new UserPostsItemAdapter(userPostsList, UserPostsActivity.this));
-
-
             }
 
             @Override
@@ -107,51 +101,5 @@ public class UserPostsActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
-
-//    private void CollectUserPosts(List<String> userPostsIds) {
-//        //match posts ids in list with posts in database
-//        Query query = database.getReference("Posts").orderByKey().limitToLast(100);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                userPostsList.clear();
-////                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-////
-////                }
-//
-//                //add posts found in database to the recyclerview
-//                for (String id : userPostsIds) {
-//                    Log.v("User Posts Id", "current post id: " + id);
-//                    DataSnapshot dataSnapshot = snapshot.child(id);
-//                    SimpleDateFormat sf = new SimpleDateFormat("yyyy/MM/dd");
-//                    userPostsList.add(new FeedItem(
-//                            id, (String)dataSnapshot.child("uid").getValue(),
-//                            (String)dataSnapshot.child("uName").getValue(),
-//                            sf.format(new Date(Long.parseLong((String)dataSnapshot.child("pID").getValue()))),
-//                            (String)dataSnapshot.child("pImage").getValue(),
-//                            (String)dataSnapshot.child("uAvatar").getValue(),
-//                            (String)dataSnapshot.child("pContent").getValue(),
-//                            dataSnapshot.child("pLikes").child(user.getUid()).exists(),
-//                            (String)dataSnapshot.child("pLikeCount").getValue(),
-//                            (String)dataSnapshot.child("pTitle").getValue(),
-//                            (String)dataSnapshot.child("pTags").getValue(),
-//                            true));
-//                }
-//
-//                userPostsRecyclerView = findViewById(R.id.recyclerView_user_posts);
-//                userPostsRecyclerView.setHasFixedSize(true);
-//                userPostsRecyclerView.setLayoutManager(new LinearLayoutManager(UserPostsActivity.this));
-//                userPostsRecyclerView.setAdapter(new FeedItemAdapter(userPostsList, UserPostsActivity.this));
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
 }
