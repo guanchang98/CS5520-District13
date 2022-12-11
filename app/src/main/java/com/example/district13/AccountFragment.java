@@ -163,9 +163,9 @@ public class AccountFragment extends Fragment {
                     postCount = (int) dataSnapshot.child("posts").getChildrenCount();
                     followingCount = (int) dataSnapshot.child("following").getChildrenCount();
                     followersCount = (int) dataSnapshot.child("followers").getChildrenCount();
-                    userPostsTv.setText(postCount + " Posts");
-                    userFollowingTv.setText(followingCount + " Following");
-                    userFollowersTv.setText(followersCount + " Followers");
+                    userPostsTv.setText(postCount + "\nPosts");
+                    userFollowingTv.setText(followingCount + "\nFollowing");
+                    userFollowersTv.setText(followersCount + "\nFollowers");
 
                     //load user avatar
                     try {

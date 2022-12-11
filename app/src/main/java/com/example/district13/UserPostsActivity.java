@@ -2,6 +2,7 @@ package com.example.district13;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,9 +91,13 @@ public class UserPostsActivity extends AppCompatActivity {
                             (String)dataSnapshot.child("pTags").getValue(),
                             true));
                 }
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(UserPostsActivity.this);
                 userPostsRecyclerView = findViewById(R.id.recyclerView_user_posts);
                 userPostsRecyclerView.setHasFixedSize(true);
-                userPostsRecyclerView.setLayoutManager(new LinearLayoutManager(UserPostsActivity.this));
+                userPostsRecyclerView.setLayoutManager(layoutManager);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(userPostsRecyclerView.getContext(),
+                ((LinearLayoutManager) layoutManager).getOrientation());
+                userPostsRecyclerView.addItemDecoration(dividerItemDecoration);
                 userPostsRecyclerView.setAdapter(new UserPostsItemAdapter(userPostsList, UserPostsActivity.this));
             }
 
