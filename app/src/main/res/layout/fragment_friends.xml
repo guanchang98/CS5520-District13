@@ -40,13 +40,13 @@
         android:textColor="@color/mocha"
         android:textSize="25dp"
         android:textStyle="bold"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="420dp"
         android:layout_marginLeft="15dp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newUserList"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="500dp"
+        android:layout_marginTop="465dp"
         android:layout_marginBottom="104dp" />
 
 </FrameLayout>
