@@ -41,8 +41,6 @@ public class OthersAccountActivity extends AppCompatActivity {
     private String userId;
     private Switch followSwitch;
 
-    private Button historyPosts;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,13 +118,17 @@ public class OthersAccountActivity extends AppCompatActivity {
             }
         });
 
-//        historyPosts = findViewById(R.id.history_posts);
-//        historyPosts.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        Button historyPosts = findViewById(R.id.history_posts);
+        historyPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent;
+                intent = new Intent(OthersAccountActivity.this, OthersPostsActivity.class);
+                intent.putExtra("OtherUserId", otherUserId);
+                Log.v("OtherUserId", otherUserId);
+                startActivity(intent);
+            }
+        });
     }
 
     private void removeFollowRelationship() {
