@@ -7,7 +7,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/followUserList"
         android:layout_width="match_parent"
-        android:layout_height="565dp"
+        android:layout_height="300dp"
         android:layout_marginTop="120dp"
         android:layout_marginBottom="104dp" />
 
@@ -33,5 +33,20 @@
         android:textStyle="bold"
         android:layout_marginTop="75sp"
         android:layout_marginLeft="15dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Outside Your Party"
+        android:textColor="@color/mocha"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="15dp"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/newUserList"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="500dp"
+        android:layout_marginBottom="104dp" />
 
 </FrameLayout>

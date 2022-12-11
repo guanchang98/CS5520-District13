@@ -25,8 +25,11 @@ import java.util.List;
 public class FriendsFragment extends Fragment {
 
     RecyclerView recyclerView;
+    RecyclerView newRecyclerView;
     AdapterUsers adapterUsers;
-    List<ModelUser> userList;
+    AdapterUsersNew adapterUsersNew;
+    List<ModelUser> followUserList;
+    List<ModelUser> newUserList;
 
     public FriendsFragment() {
         // Required empty public constructor
@@ -38,11 +41,12 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
         recyclerView = view.findViewById(R.id.followUserList);
+        newRecyclerView = view.findViewById(R.id.newUserList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        userList = new ArrayList<>();
-        
+        newRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        followUserList = new ArrayList<>();
+        newUserList = new ArrayList<>();
         getAllUsers();
         return view;
     }
@@ -53,14 +57,21 @@ public class FriendsFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                userList.clear();
+                followUserList.clear();
                 for (DataSnapshot ds: snapshot.getChildren()) {
                     ModelUser modelUser = ds.getValue(ModelUser.class);
-                    if(!modelUser.getUid().equals(firebaseUser.getUid())){
-                        userList.add(modelUser);
+                    String my_uid = modelUser.getUid();
+                    String other_uid = firebaseUser.getUid();
+                    if((!my_uid.equals(firebaseUser.getUid())) && snapshot.child("followers").child(other_uid).exists()){
+                        followUserList.add(modelUser);
                     }
-                    adapterUsers = new AdapterUsers(getActivity(), userList);
+                    else if((!my_uid.equals(firebaseUser.getUid())) && !snapshot.child("followers").child(other_uid).exists()) {
+                        newUserList.add(modelUser);
+                    }
+                    adapterUsers = new AdapterUsers(getActivity(), followUserList);
                     recyclerView.setAdapter(adapterUsers);
+                    adapterUsersNew = new AdapterUsersNew(getActivity(), newUserList);
+                    newRecyclerView.setAdapter(adapterUsersNew);
                 }
             }
 
