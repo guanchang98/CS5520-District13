@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class OthersAccountActivity extends AppCompatActivity {
     private String otherUserId;
     private String userId;
     private Switch followSwitch;
+
+    private Button historyPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,14 @@ public class OthersAccountActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        historyPosts = findViewById(R.id.history_posts);
+//        historyPosts.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
     private void removeFollowRelationship() {
