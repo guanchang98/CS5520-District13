@@ -78,6 +78,7 @@ public class AccountFragment extends Fragment {
     //buttons
     Button logOut;
     FloatingActionButton editUser;
+    Button goUserPosts;
 
     //progress dialog
     ProgressDialog pd;
@@ -125,6 +126,11 @@ public class AccountFragment extends Fragment {
         userPostsTv = view.findViewById(R.id.user_posts);
         userFollowingTv = view.findViewById(R.id.user_following);
         userFollowersTv = view.findViewById(R.id.user_followers);
+
+        //init button
+        logOut = view.findViewById(R.id.user_logout);
+        editUser = view.findViewById(R.id.edit_user);
+        goUserPosts = view.findViewById(R.id.go_to_posts);
 
         //init progress dialog
         pd = new ProgressDialog(getActivity());
@@ -187,10 +193,6 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        //init button
-        logOut = view.findViewById(R.id.user_logout);
-        editUser = view.findViewById(R.id.edit_user);
-
         //handle logout button
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,7 +210,17 @@ public class AccountFragment extends Fragment {
                 showEditUserDialog();
             }
         });
+
+        //handle goUserPosts button
+        goUserPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), UserPostsActivity.class));
+            }
+        });
+
         return view;
+
     }
 
     //method handle edit user button
